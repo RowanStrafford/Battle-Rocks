@@ -5,3 +5,6 @@ Ideas :
 
 - Players work together to destroy asteroids.
 - Players fight each other in an asteroid field with gunz n shit.
+
+
+- Game of catch in an asteroid field, chaser is slower but has better gun, once caught, swap roles
