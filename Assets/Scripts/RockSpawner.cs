@@ -6,6 +6,8 @@ public class RockSpawner : MonoBehaviour {
     public GameObject player;
     public GameObject rock;
 
+    
+
 	void Start ()
     {
         Invoke("SpawnRocks", 4.0f);
