@@ -8,5 +8,3 @@ Ideas :
 
 
 - Game of catch in an asteroid field, chaser is slower but has better gun, once caught, swap roles
-
-- https://www.reddit.com/r/techsupport/comments/33evdi/suggested_reading_official_malware_removal_guide/
