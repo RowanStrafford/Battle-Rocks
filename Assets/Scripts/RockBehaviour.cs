@@ -11,9 +11,8 @@ public class RockBehaviour : MonoBehaviour {
     {
 	}
 	
-	void Update ()
-    {
-        transform.Rotate(rotation * Time.deltaTime);
+	void Update() {
+		transform.Rotate(rotation * Time.deltaTime);
 	}
 
     public void SetRotation(Vector3 rotation)

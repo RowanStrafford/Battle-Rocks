@@ -15,7 +15,7 @@ public class RockSpawner : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        createInitialRocks();
+        //createInitialRocks();
 	}
 
 	// Update is called once per frame
@@ -35,14 +35,14 @@ public class RockSpawner : MonoBehaviour {
 		GameObject rock = rockWrapper.gameObject.transform.GetChild(0).gameObject;
 		RockBehaviour rockBehaviour = rock.GetComponent<RockBehaviour>();
 
-		rockWrapperBehaviour.SetSpeed(Random.Range(0.5f, 3f));
+		rockWrapperBehaviour.SetSpeed(Random.Range(0.5f*speed, 1f*speed));
 
 		rock.transform.localScale = new Vector3(Random.Range(0.2f * size, 0.8f * size), Random.Range(0.2f * size, 0.8f * size), Random.Range(0.2f * size, 0.8f * size));
 
 		rockBehaviour.SetRotation(new Vector3(Random.Range(3f, 100f), Random.Range(3f, 100f), Random.Range(3f, 100f)));
 
 		Vector3 euler = transform.eulerAngles;
-		euler.z = Random.Range(0f, 360f);
+		euler.z = rotation;
 		rockWrapperBehaviour.transform.eulerAngles = euler;
 
 		return rock;
@@ -52,22 +52,26 @@ public class RockSpawner : MonoBehaviour {
 		for (int i = 0; i < num; i++) {
 			int side = Random.Range(1, 5);
 			Vector3 spawnPos = new Vector3(0, 0);
+			float rotation = 0f;
 			switch (side) {
-				case 1:
-					spawnPos.Set(Random.Range(Map.X - 100, Map.X), Random.Range(Map.Y, Map.Y + Map.H), 0);
+				case 1://LEFT
+					spawnPos.Set(Random.Range(Map.X - 50 - 10, Map.X - 10), Random.Range(Map.Y + Map.H, Map.Y), 0);
+					rotation = Random.Range(0f - 20f, 0f + 20f);
 					break;
-				case 2:
-					spawnPos.Set(Random.Range(Map.X, Map.X+Map.W), Random.Range(Map.Y - 100, Map.Y), 0);
+				case 2://BOT
+					spawnPos.Set(Random.Range(Map.X, Map.X + Map.W), Random.Range(Map.Y - 50 - 10, Map.Y - 10), 0);
+					rotation = Random.Range(90f - 20f, 90f + 20f);
 					break;
-
-				case 3:
-					spawnPos.Set(Random.Range(Map.X, Map.X + 100), Random.Range(Map.Y, Map.Y + Map.H), 0);
+				case 3://RIGHT
+					spawnPos.Set(Random.Range(Map.X + Map.W + 10, Map.X + Map.W + 50 + 10), Random.Range(Map.Y, Map.Y + Map.H), 0);
+					rotation = Random.Range(180f - 20f, 180f + 20f);
 					break;
-				case 4:
-					spawnPos.Set(Random.Range(Map.X, Map.X + Map.W), Random.Range(Map.Y, Map.Y + 100), 0);
+				case 4://TOP
+					spawnPos.Set(Random.Range(Map.X, Map.X + Map.W), Random.Range(Map.Y + Map.H + 10, Map.Y + Map.H + 50 + 10), 0);
+					rotation = Random.Range(270f - 20f, 270f + 20f);
 					break;
 			}
-			createRock(spawnPos);
+			createRock(spawnPos, Random.Range(1, 5), 2, rotation);
 		}
 	}
 
