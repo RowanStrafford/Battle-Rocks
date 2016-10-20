@@ -3,7 +3,6 @@ using System.Collections;
 
 public class RockWrapperBehaviour : MonoBehaviour {
 	private float speed;
-	private Vector3 rotation;
 
 	// Use this for initialization
 	void Start () {
@@ -20,7 +19,4 @@ public class RockWrapperBehaviour : MonoBehaviour {
 		this.speed = speed;
 	}
 
-	public void SetRotation(Vector3 rotation) {
-		this.rotation = rotation;
-	}
 }
