@@ -62,4 +62,6 @@ public class RockSpawner : MonoBehaviour {
 
         Instantiate(rock, spawnLocation, Quaternion.identity);
     }
+
+    
 }
