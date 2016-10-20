@@ -1,67 +1,80 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class RockSpawner : MonoBehaviour {
 
-    public GameObject player;
-    public GameObject rock;
+    public int initialRockNum;
+    public GameObject[] rocks;//Rock types to choose between
+	public GameObject[] avoids;//Objects to not spawn rocks on
 
-    public GameObject[] rocks;    
-
-	void Start ()
-    {
-        Invoke("SpawnRocks", 4.0f);
-        InitialRockSpawn();
+	// Use this for initialization
+	void Start () {
+        createInitialRocks();
 	}
-	
-	void Update ()
-    {
+
+	// Update is called once per frame
+	void Update () {
 	
 	}
 
-    // A small amount of rocks will be randomly spawned around the map at the start.
-    void InitialRockSpawn()
-    {
-        int numOfRocks = Random.Range(15, 25);
+    void createInitialRocks() {
+        int i = 0;
 
-        for(int i = 0; i < numOfRocks; i++)
-        {
-            int randRock = Random.Range(0, rocks.Length);  
+        Vector3[] avoidPositions = new Vector3[avoids.Length];
 
-            float randXValue = Random.Range(-50.0f, 50.0f);     // Hard coded, sorry 
-            float randYValue = Random.Range(-25.0f, 25.0f);     // will fix later. xx <3
+        for (i=0;i<avoids.Length;i++)
+			avoidPositions[i] = avoids[i].transform.position;
 
-            Vector3 rockSpawnPos = new Vector3(randXValue, randYValue, 0);
-            GameObject spawnedRock = Instantiate(rocks[randRock], rockSpawnPos, Quaternion.identity) as GameObject;
+        int emergencyEscape = 0;
 
-            float randXScale = Random.Range(0.6f, 1.3f);
-            float randYScale = Random.Range(0.6f, 1.3f);
-            float randZScale = Random.Range(0.6f, 1.3f);
+		i = 0;
+		while (i < initialRockNum) {
+            Vector3 spawnPos = new Vector3(Random.Range(Map.X, Map.X+Map.W), Random.Range(Map.Y, Map.Y + Map.H));
 
-            spawnedRock.transform.localScale = new Vector3(randXScale, randYScale, randZScale);
-            RockBehaviour rockBehaviour = spawnedRock.GetComponent<RockBehaviour>();
+            Vector3 dist = new Vector3(0, 0);
 
-            float randomXRotationSpeed = Random.Range(3f, 100f);
-            float randomYRotationSpeed = Random.Range(3f, 100f);
-            float randomZRotationSpeed = Random.Range(3f, 100f);
+            bool canPlace = false;
+            
+            for (int j = 0; j < avoids.Length; j++) {
+                dist = spawnPos - avoidPositions[j];
+                if (dist.magnitude < 5) {
+                    //Debug.Log("skipping because too close " + i);
+                    canPlace = false;
+                    break;
+                }
+                canPlace = true;
+            }
 
-            rockBehaviour.SetRotation(new Vector3(randomXRotationSpeed, randomYRotationSpeed, randomZRotationSpeed));
+            if (canPlace == false) {
+				if (emergencyEscape++ < 100) {
+					continue;
+				} else {
+					Debug.Log("escaping infinite loop");
+					return;
+				}
+            }
 
-
+			if (createRock(Instantiate(rocks[Random.Range(0, rocks.Length)], spawnPos, Quaternion.identity) as GameObject))
+				i++;
+			else
+				break;
         }
     }
 
-    void SpawnRocks()
-    {
-        //Vector3 playerPos = player.transform.position;
-
-        float randXValue = Random.Range(-30.0f, 30.0f);
-        float randYValue = Random.Range(-20.0f, 20.0f);
-
-        Vector3 spawnLocation = new Vector3(randXValue, randYValue, 0);
-
-        Instantiate(rock, spawnLocation, Quaternion.identity);
-    }
-
-    
+	bool createRock(GameObject rock) {
+		rock.transform.localScale = new Vector3(Random.Range(0.6f, 2f), Random.Range(0.6f, 2f), Random.Range(0.6f, 2f));
+		
+		RockBehaviour rockBehaviour = rock.GetComponent<RockBehaviour>();
+		if (rockBehaviour == null) {
+			Debug.Log("rockBehaviour=null");
+			Debug.Log("Exited the Application");
+			Application.Quit();
+			return false;
+		} else {
+			rockBehaviour.SetRotation(new Vector3(Random.Range(3f, 100f), Random.Range(3f, 100f), Random.Range(3f, 100f)));
+			rockBehaviour.SetSpeed(Random.Range(0.5f, 3f));
+			return true;
+		}
+	}
 }
