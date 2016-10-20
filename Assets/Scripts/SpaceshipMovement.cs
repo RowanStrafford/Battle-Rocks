@@ -9,9 +9,12 @@ public class SpaceshipMovement : MonoBehaviour {
 
     private float speedUpTimer = 0f;
 
+    public float force = 3.0f;
+    private Rigidbody2D rb2d;
+
 	void Start ()
     {
-	
+        rb2d = GetComponent<Rigidbody2D>();
 	}
 	
 	void Update ()
@@ -19,17 +22,11 @@ public class SpaceshipMovement : MonoBehaviour {
 	    if((Input.GetKey(KeyCode.W) || (Input.GetKey(KeyCode.UpArrow))))
         {
             speedUpTimer += Time.deltaTime;
-            if(speedUpTimer > 1.0f)
-            {
-                transform.Translate(Time.deltaTime * boostSpeed, 0, 0);
-
-            } else transform.Translate(Time.deltaTime * moveSpeed, 0, 0);
+            if (speedUpTimer > 1.0f) transform.Translate(Time.deltaTime * boostSpeed, 0, 0);              
+            else transform.Translate(Time.deltaTime * moveSpeed, 0, 0);
         }
-        else if ((Input.GetKey(KeyCode.S) || (Input.GetKey(KeyCode.DownArrow))))
-        {
-            transform.Translate(-Time.deltaTime * moveSpeed, 0, 0);
-        }
-
+        else if ((Input.GetKey(KeyCode.S) || (Input.GetKey(KeyCode.DownArrow)))) transform.Translate(-Time.deltaTime * moveSpeed, 0, 0);
+        
         if (Input.GetKeyUp(KeyCode.W) || (Input.GetKeyUp(KeyCode.UpArrow))) speedUpTimer = 0f;
 
         Vector3 mousePos = Input.mousePosition;
@@ -40,11 +37,16 @@ public class SpaceshipMovement : MonoBehaviour {
 
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, playerRotationAngle));
 
-        if (transform.position.x < -50.0f) transform.position = new Vector3(-50.0f, transform.position.y, transform.position.z);
-        if (transform.position.x > 50.0f) transform.position = new Vector3(50.0f, transform.position.y, transform.position.z);
-        if (transform.position.y < -25.0f) transform.position = new Vector3(transform.position.x, -25.0f, transform.position.z);
-        if (transform.position.y > 25.0f) transform.position = new Vector3(transform.position.x, 25.0f, transform.position.z);
+        if (transform.position.x < -90f) transform.position = new Vector3(-90f, transform.position.y, transform.position.z);
+        if (transform.position.x > 90f) transform.position = new Vector3(90f, transform.position.y, transform.position.z);
+        if (transform.position.y < -38f) transform.position = new Vector3(transform.position.x, -38f, transform.position.z);
+        if (transform.position.y > 38f) transform.position = new Vector3(transform.position.x, 38f, transform.position.z);
 
-        cameraObject.transform.position = new Vector3(transform.position.x, transform.position.y, -10.0f);
+        //cameraObject.transform.position = new Vector3(transform.position.x, transform.position.y, -10.0f);
     }    
+
+    void FixedUpdate()
+    {
+        
+    }
 }
