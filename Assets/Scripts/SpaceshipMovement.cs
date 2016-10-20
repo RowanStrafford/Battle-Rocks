@@ -29,24 +29,10 @@ public class SpaceshipMovement : MonoBehaviour {
 
     void Update ()
     {
-        //if(Input.GetKeyDown(KeyCode.W))
-        //{
-        //    emmisions.enabled = true;
-        //}
+        if(Input.GetKeyDown(KeyCode.W)) emmisions.enabled = true;
 
-        //if (Input.GetKey(KeyCode.W))
-        //{
-        //    speedUpTimer += Time.deltaTime;
-        //    if (speedUpTimer > 1.0f) transform.Translate(Time.deltaTime * boostSpeed, 0, 0);              
-        //    else transform.Translate(Time.deltaTime * moveSpeed, 0, 0);
-        //}
-        //else if ((Input.GetKey(KeyCode.S) || (Input.GetKey(KeyCode.DownArrow)))) transform.Translate(-Time.deltaTime * moveSpeed, 0, 0);
-
-        //if (Input.GetKeyUp(KeyCode.W) || (Input.GetKeyUp(KeyCode.UpArrow)))
-        //{
-        //    speedUpTimer = 0f;
-        //    emmisions.enabled = false;
-        //}
+        if (Input.GetKeyUp(KeyCode.W) || (Input.GetKeyUp(KeyCode.UpArrow))) emmisions.enabled = false;
+        
 
         Vector3 mousePos = Input.mousePosition;
         Vector3 objectPos = Camera.main.WorldToScreenPoint(transform.position);
@@ -70,5 +56,12 @@ public class SpaceshipMovement : MonoBehaviour {
         {
             rb.AddForce(transform.right * force);
         }
+
+        transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+    }
+
+    public float GetPlayerSpeed()
+    {
+        return rb.velocity.magnitude;
     }
 }

@@ -8,6 +8,11 @@ public class RockSpawner : MonoBehaviour {
     public GameObject[] rockWrappers;//Rock types to choose between
 	public GameObject[] avoids;//Objects to not spawn rocks on
 
+	public int timeBetweenWaves;
+	public int waveRockNum;
+
+	private float timer = 0;
+
 	// Use this for initialization
 	void Start () {
         createInitialRocks();
@@ -15,10 +20,58 @@ public class RockSpawner : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-	
+		timer += Time.deltaTime;
+		//Debug.Log(timer);
+		if (timer > timeBetweenWaves) {
+			spawnWave(waveRockNum);
+			timer = 0;
+			//Debug.Log("NEW WAVE");
+		}
 	}
 
-    void createInitialRocks() {
+	GameObject createRock(Vector3 spawnPos, int size = 3, int speed = 2, float rotation = 0f) {
+		GameObject rockWrapper = Instantiate(rockWrappers[Random.Range(0, rockWrappers.Length)], spawnPos, Quaternion.identity) as GameObject;
+		RockWrapperBehaviour rockWrapperBehaviour = rockWrapper.GetComponent<RockWrapperBehaviour>();
+		GameObject rock = rockWrapper.gameObject.transform.GetChild(0).gameObject;
+		RockBehaviour rockBehaviour = rock.GetComponent<RockBehaviour>();
+
+		rockWrapperBehaviour.SetSpeed(Random.Range(0.5f, 3f));
+
+		rock.transform.localScale = new Vector3(Random.Range(0.2f * size, 0.8f * size), Random.Range(0.2f * size, 0.8f * size), Random.Range(0.2f * size, 0.8f * size));
+
+		rockBehaviour.SetRotation(new Vector3(Random.Range(3f, 100f), Random.Range(3f, 100f), Random.Range(3f, 100f)));
+
+		Vector3 euler = transform.eulerAngles;
+		euler.z = Random.Range(0f, 360f);
+		rockWrapperBehaviour.transform.eulerAngles = euler;
+
+		return rock;
+	}
+
+	void spawnWave(int num) {
+		for (int i = 0; i < num; i++) {
+			int side = Random.Range(1, 5);
+			Vector3 spawnPos = new Vector3(0, 0);
+			switch (side) {
+				case 1:
+					spawnPos.Set(Random.Range(Map.X - 100, Map.X), Random.Range(Map.Y, Map.Y + Map.H), 0);
+					break;
+				case 2:
+					spawnPos.Set(Random.Range(Map.X, Map.X+Map.W), Random.Range(Map.Y - 100, Map.Y), 0);
+					break;
+
+				case 3:
+					spawnPos.Set(Random.Range(Map.X, Map.X + 100), Random.Range(Map.Y, Map.Y + Map.H), 0);
+					break;
+				case 4:
+					spawnPos.Set(Random.Range(Map.X, Map.X + Map.W), Random.Range(Map.Y, Map.Y + 100), 0);
+					break;
+			}
+			createRock(spawnPos);
+		}
+	}
+
+	void createInitialRocks() {
         int i = 0;
 
         Vector3[] avoidPositions = new Vector3[avoids.Length];
@@ -53,33 +106,11 @@ public class RockSpawner : MonoBehaviour {
 					return;
 				}
             }
-
-			if (createRock(Instantiate(rockWrappers[Random.Range(0, rockWrappers.Length)], spawnPos, Quaternion.identity) as GameObject))
-				i++;
-			else
-				break;
-        }
+			createRock(spawnPos, Random.Range(1, 5));
+			i++;
+		}
     }
 
-	bool createRock(GameObject rockWrapper) {
-		GameObject rock = rockWrapper.gameObject.transform.GetChild(0).gameObject;
+	
 
-		rock.transform.localScale = new Vector3(Random.Range(0.6f, 2.5f), Random.Range(0.6f, 2.5f), Random.Range(0.6f, 2.5f));
-		
-		RockBehaviour rockBehaviour = rock.GetComponent<RockBehaviour>();
-		if (rockBehaviour == null) {
-			Debug.Log("rockBehaviour=null");
-			Debug.Log("Exited the Application");
-			Application.Quit();
-			return false;
-		} else {
-			rockBehaviour.SetRotation(new Vector3(Random.Range(3f, 100f), Random.Range(3f, 100f), Random.Range(3f, 100f)));
-			RockWrapperBehaviour rockWrapperBehaviour = rockWrapper.GetComponent<RockWrapperBehaviour>();
-			rockWrapperBehaviour.SetSpeed(Random.Range(0.5f, 3f));
-			Vector3 euler = transform.eulerAngles;
-			euler.z = Random.Range(0f, 360f);
-			rockWrapperBehaviour.transform.eulerAngles = euler;
-			return true;
-		}
-	}
 }
