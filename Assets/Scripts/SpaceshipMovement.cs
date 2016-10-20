@@ -12,22 +12,33 @@ public class SpaceshipMovement : MonoBehaviour {
     public float force = 3.0f;
     private Rigidbody2D rb2d;
 
+    private ParticleSystem particles;
+
 	void Start ()
     {
         rb2d = GetComponent<Rigidbody2D>();
-	}
-	
-	void Update ()
+        particles = GetComponent<ParticleSystem>();
+        particles.enableEmission = false;
+
+    }
+
+    void Update ()
     {
 	    if((Input.GetKey(KeyCode.W) || (Input.GetKey(KeyCode.UpArrow))))
         {
             speedUpTimer += Time.deltaTime;
             if (speedUpTimer > 1.0f) transform.Translate(Time.deltaTime * boostSpeed, 0, 0);              
             else transform.Translate(Time.deltaTime * moveSpeed, 0, 0);
+            particles.enableEmission = true;
         }
         else if ((Input.GetKey(KeyCode.S) || (Input.GetKey(KeyCode.DownArrow)))) transform.Translate(-Time.deltaTime * moveSpeed, 0, 0);
-        
-        if (Input.GetKeyUp(KeyCode.W) || (Input.GetKeyUp(KeyCode.UpArrow))) speedUpTimer = 0f;
+
+        if (Input.GetKeyUp(KeyCode.W) || (Input.GetKeyUp(KeyCode.UpArrow)))
+        {
+            speedUpTimer = 0f;
+            particles.enableEmission = false;
+
+        }
 
         Vector3 mousePos = Input.mousePosition;
         Vector3 objectPos = Camera.main.WorldToScreenPoint(transform.position);
