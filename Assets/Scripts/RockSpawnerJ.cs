@@ -66,6 +66,9 @@ public class RockSpawnerJ : MonoBehaviour {
 	bool createRock(GameObject rock) {
 		rock.transform.localScale = new Vector3(Random.Range(0.6f, 2f), Random.Range(0.6f, 2f), Random.Range(0.6f, 2f));
 
+		
+
+
 		RockBehaviour rockBehaviour = rock.GetComponent<RockBehaviour>();
 		if (rockBehaviour == null) {
 			Debug.Log("rockBehaviour=null");
@@ -74,8 +77,10 @@ public class RockSpawnerJ : MonoBehaviour {
 			return false;
 		} else {
 			rockBehaviour.SetRotation(new Vector3(Random.Range(3f, 100f), Random.Range(3f, 100f), Random.Range(3f, 100f)));
+			rockBehaviour.SetSpeed(Random.Range(0.5f, 3f));
 			return true;
 		}
+		
 	}
 
 

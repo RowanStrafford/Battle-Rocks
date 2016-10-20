@@ -5,6 +5,7 @@ public class RockBehaviour : MonoBehaviour {
 
     public float rotateSpeed;
     private Vector3 rockRotation;
+	private float speed;
 
 	void Start ()
     {
@@ -14,7 +15,7 @@ public class RockBehaviour : MonoBehaviour {
 	void Update ()
     {
         transform.Rotate(rockRotation * Time.deltaTime);
-
+		transform.Translate(Time.deltaTime * speed, 0, 0);
         //transform.Rotate(Time.deltaTime * rotateSpeed, Time.deltaTime * rotateSpeed, Time.deltaTime * rotateSpeed);
 	}
 
@@ -22,4 +23,9 @@ public class RockBehaviour : MonoBehaviour {
     {
         rockRotation = rotation;
     }
+
+	public void SetSpeed(float speed) {
+		this.speed = speed;
+	}
+
 }
