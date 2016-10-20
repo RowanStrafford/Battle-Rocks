@@ -5,8 +5,8 @@ using System.Collections.Generic;
 public class RockSpawnerJ : MonoBehaviour {
 
     public int initialRockNum;
-    public GameObject[] rocks;
-    public GameObject[] avoids;
+    public GameObject[] rocks;//Rock types to choose between
+	public GameObject[] avoids;//Objects to not spawn rocks on
 
 	// Use this for initialization
 	void Start () {
@@ -23,9 +23,8 @@ public class RockSpawnerJ : MonoBehaviour {
 
         Vector3[] avoidPositions = new Vector3[avoids.Length];
 
-        for (i=0;i<avoids.Length;i++) {
-            avoidPositions[i] = avoids[i].transform.position;
-        }
+        for (i=0;i<avoids.Length;i++)
+			avoidPositions[i] = avoids[i].transform.position;
 
         int emergencyEscape = 0;
 
@@ -55,23 +54,29 @@ public class RockSpawnerJ : MonoBehaviour {
 					return;
 				}
             }
-            GameObject spawnedRock = Instantiate(rocks[Random.Range(0, rocks.Length)], spawnPos, Quaternion.identity) as GameObject;
 
-            spawnedRock.transform.localScale = new Vector3(Random.Range(0.6f, 2f), Random.Range(0.6f, 2f), Random.Range(0.6f, 2f));
-
-            RockBehaviour rockBehaviour = spawnedRock.GetComponent<RockBehaviour>();
-            if (rockBehaviour == null) {
-                Debug.Log("rockBehaviour=null");
-                Debug.Log("Exited the Application");
+			if (createRock(Instantiate(rocks[Random.Range(0, rocks.Length)], spawnPos, Quaternion.identity) as GameObject))
+				i++;
+			else
 				i = 100;
-                Application.Quit();
-            }
-            else {
-                rockBehaviour.SetRotation(new Vector3(Random.Range(3f, 100f), Random.Range(3f, 100f), Random.Range(3f, 100f)));
-            }
-            i++;
         }
     }
+
+
+	bool createRock(GameObject rock) {
+		rock.transform.localScale = new Vector3(Random.Range(0.6f, 2f), Random.Range(0.6f, 2f), Random.Range(0.6f, 2f));
+
+		RockBehaviour rockBehaviour = rock.GetComponent<RockBehaviour>();
+		if (rockBehaviour == null) {
+			Debug.Log("rockBehaviour=null");
+			Debug.Log("Exited the Application");
+			Application.Quit();
+			return false;
+		} else {
+			rockBehaviour.SetRotation(new Vector3(Random.Range(3f, 100f), Random.Range(3f, 100f), Random.Range(3f, 100f)));
+			return true;
+		}
+	}
 
 
 }
