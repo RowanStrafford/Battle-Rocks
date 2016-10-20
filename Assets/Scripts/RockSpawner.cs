@@ -30,8 +30,7 @@ public class RockSpawner : MonoBehaviour {
 
 		i = 0;
 		while (i < initialRockNum) {
-            Vector3 spawnPos = new Vector3(Random.Range(Map.X, Map.X+Map.W), Random.Range(Map.Y, Map.Y + Map.H));
-			spawnPos.z = 0;
+            Vector3 spawnPos = new Vector3(Random.Range(Map.X, Map.X+Map.W), Random.Range(Map.Y, Map.Y + Map.H), 0);
             Vector3 dist = new Vector3(0, 0);
 
             bool canPlace = false;
@@ -64,8 +63,8 @@ public class RockSpawner : MonoBehaviour {
 
 	bool createRock(GameObject rockWrapper) {
 		GameObject rock = rockWrapper.gameObject.transform.GetChild(0).gameObject;
-		//rock. = rockWrapper.transform;
-		rock.transform.localScale = new Vector3(Random.Range(0.6f, 2f), Random.Range(0.6f, 2f), Random.Range(0.6f, 2f));
+
+		rock.transform.localScale = new Vector3(Random.Range(0.6f, 2.5f), Random.Range(0.6f, 2.5f), Random.Range(0.6f, 2.5f));
 		
 		RockBehaviour rockBehaviour = rock.GetComponent<RockBehaviour>();
 		if (rockBehaviour == null) {
