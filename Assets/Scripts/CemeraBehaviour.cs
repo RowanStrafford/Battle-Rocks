@@ -14,7 +14,7 @@ public class CemeraBehaviour : MonoBehaviour {
 	
 	}
 	
-	void Update ()
+	void FixedUpdate ()
     {
         //transform.position = new Vector3(player.transform.position.x, player.transform.position.y, -10.0f);
 
