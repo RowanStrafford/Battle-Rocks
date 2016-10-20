@@ -12,32 +12,40 @@ public class SpaceshipMovement : MonoBehaviour {
     public float force = 3.0f;
     private Rigidbody2D rb2d;
 
-    private ParticleSystem particles;
+    public GameObject thrusters;
 
-	void Start ()
+    private ParticleSystem particles;
+    ParticleSystem.EmissionModule emmisions;
+
+
+    void Start ()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        particles = GetComponent<ParticleSystem>();
-        particles.enableEmission = false;
+        particles = thrusters.GetComponent<ParticleSystem>();
+        emmisions = particles.emission;
+        emmisions.enabled = false;
 
     }
 
     void Update ()
     {
-	    if((Input.GetKey(KeyCode.W) || (Input.GetKey(KeyCode.UpArrow))))
+        if(Input.GetKeyDown(KeyCode.W))
+        {
+            emmisions.enabled = true;
+        }
+
+        if (Input.GetKey(KeyCode.W))
         {
             speedUpTimer += Time.deltaTime;
             if (speedUpTimer > 1.0f) transform.Translate(Time.deltaTime * boostSpeed, 0, 0);              
             else transform.Translate(Time.deltaTime * moveSpeed, 0, 0);
-            particles.enableEmission = true;
         }
         else if ((Input.GetKey(KeyCode.S) || (Input.GetKey(KeyCode.DownArrow)))) transform.Translate(-Time.deltaTime * moveSpeed, 0, 0);
 
         if (Input.GetKeyUp(KeyCode.W) || (Input.GetKeyUp(KeyCode.UpArrow)))
         {
             speedUpTimer = 0f;
-            particles.enableEmission = false;
-
+            emmisions.enabled = false;
         }
 
         Vector3 mousePos = Input.mousePosition;
