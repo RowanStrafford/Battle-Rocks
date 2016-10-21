@@ -8,6 +8,7 @@ public class RockBehaviour : MonoBehaviour {
     private Vector3 rotation;
 	public Rigidbody rb;
 	public float speed;
+	public float rockDensity = 2f;
 
     private float health;	
 
@@ -15,6 +16,9 @@ public class RockBehaviour : MonoBehaviour {
     {
         float meanRockSize = (transform.localScale.x + transform.localScale.y + transform.localScale.z) / 3;
         health = 10 * meanRockSize;
+		//Debug.Log(rb.mass);
+		rb.SetDensity(rockDensity);
+		//Debug.Log(rb.mass);
 	}
 	
 	void Update() {
