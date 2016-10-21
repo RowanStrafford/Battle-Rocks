@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class RockSpawner : MonoBehaviour {
 
     public int initialRockNum;
-    public GameObject[] rockWrappers;//Rock types to choose between
+    public GameObject[] rocks;//Rock types to choose between
 	public GameObject[] avoids;//Objects to not spawn rocks on
 
 	public int timeBetweenWaves;
@@ -28,23 +28,22 @@ public class RockSpawner : MonoBehaviour {
 	}
 
 	GameObject createRock(Vector3 spawnPos, int size = 3, int speed = 2, float rotation = -1f) {
-		GameObject rockWrapper = Instantiate(rockWrappers[Random.Range(0, rockWrappers.Length)], spawnPos, Quaternion.identity) as GameObject;
-		RockWrapperBehaviour rockWrapperBehaviour = rockWrapper.GetComponent<RockWrapperBehaviour>();
-		GameObject rock = rockWrapper.gameObject.transform.GetChild(0).gameObject;
+		GameObject rock = Instantiate(rocks[Random.Range(0, rocks.Length)], spawnPos, Quaternion.identity) as GameObject;
 		RockBehaviour rockBehaviour = rock.GetComponent<RockBehaviour>();
 
-		rockWrapperBehaviour.SetSpeed(Random.Range(0.5f*speed, 1f*speed));
-
-		rock.transform.localScale = new Vector3(Random.Range(0.2f * size, 0.8f * size), Random.Range(0.2f * size, 0.8f * size), Random.Range(0.2f * size, 0.8f * size));
-
-		rockBehaviour.SetRotation(new Vector3(Random.Range(3f, 100f), Random.Range(3f, 100f), Random.Range(3f, 100f)));
+		rockBehaviour.SetSpeed(Random.Range(0.5f*speed, 1f*speed));
 
 		Vector3 euler = transform.eulerAngles;
 		if (rotation == -1f)
 			rotation = Random.Range(0, 360f);
 		euler.z = rotation;
-		rockWrapperBehaviour.transform.eulerAngles = euler;
+		rockBehaviour.SetDirection(euler, speed);
 
+		rock.transform.localScale = new Vector3(Random.Range(0.2f * size, 0.8f * size), Random.Range(0.2f * size, 0.8f * size), Random.Range(0.2f * size, 0.8f * size));
+
+		rockBehaviour.SetRotation(new Vector3(Random.Range(3f, 100f), Random.Range(3f, 100f), Random.Range(3f, 100f)));
+
+		
 		return rock;
 	}
 

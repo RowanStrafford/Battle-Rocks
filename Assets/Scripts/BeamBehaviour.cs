@@ -7,6 +7,8 @@ public class BeamBehaviour : MonoBehaviour {
 
     public float bulletSpeed;
 
+	public float damage;
+
 	void Start ()
     {
         Destroy(gameObject, 10.0f);
@@ -29,9 +31,22 @@ public class BeamBehaviour : MonoBehaviour {
 
             if (rockBehaviour.GetHealth() > 0)
             {
-                rockBehaviour.SetHealth(Random.Range(1f, 2.5f));
+                rockBehaviour.takeDamage(damage);
             } else
             {
+
+				/*
+				1.rock is destroyed
+				2.rock splits into smaller rocks unless that size is less than 0.5
+					1.smaller rocks combined size = 2/3 of the parent rock
+					2.the rocks' size is in the usual range//change rock create to accomodate any size (float)
+					3.the number of rocks spawned should depend on the dmg dealt to them
+
+
+
+
+				*/
+
                 float meanRockSize = (col.transform.localScale.x + col.transform.localScale.y + col.transform.localScale.z) / 3;
                 float adjustedMeanRockSize = meanRockSize * 0.8f; // Their will be some loss in the rock size
                 int randNumOfRocks = Random.Range(3, 5);
