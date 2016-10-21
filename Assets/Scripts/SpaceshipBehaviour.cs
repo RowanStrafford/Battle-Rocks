@@ -35,8 +35,8 @@ public class SpaceshipBehaviour : MonoBehaviour {
         float meanSize = (rockSize.x + rockSize.y + rockSize.z) / 3;
 
 
-        float playerSpeed = spaceshipMovementScript.GetPlayerSpeed();
-        float speedAddition = Mathf.RoundToInt(playerSpeed);
+        float shipSpeed = spaceshipMovementScript.GetSpeed();
+        float speedAddition = Mathf.RoundToInt(shipSpeed);
         playerHealth -= Random.Range(1f, 3f) + speedAddition * meanSize;
 
         if (meanSize < 0.6f) return;
