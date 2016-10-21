@@ -12,6 +12,6 @@ public class BeamBehaviour : MonoBehaviour {
 	
 	void Update ()
     {
-        transform.Translate(Time.deltaTime * bulletSpeed, 0, 0);
+        transform.Translate(Time.deltaTime * bulletSpeed, 0, 0);//Change to force
 	}
 }

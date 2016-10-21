@@ -15,21 +15,19 @@ public class RockSpawner : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        //createInitialRocks();
+        createInitialRocks();
 	}
 
 	// Update is called once per frame
 	void Update () {
 		timer += Time.deltaTime;
-		//Debug.Log(timer);
 		if (timer > timeBetweenWaves) {
 			spawnWave(waveRockNum);
 			timer = 0;
-			//Debug.Log("NEW WAVE");
 		}
 	}
 
-	GameObject createRock(Vector3 spawnPos, int size = 3, int speed = 2, float rotation = 0f) {
+	GameObject createRock(Vector3 spawnPos, int size = 3, int speed = 2, float rotation = -1f) {
 		GameObject rockWrapper = Instantiate(rockWrappers[Random.Range(0, rockWrappers.Length)], spawnPos, Quaternion.identity) as GameObject;
 		RockWrapperBehaviour rockWrapperBehaviour = rockWrapper.GetComponent<RockWrapperBehaviour>();
 		GameObject rock = rockWrapper.gameObject.transform.GetChild(0).gameObject;
@@ -42,6 +40,8 @@ public class RockSpawner : MonoBehaviour {
 		rockBehaviour.SetRotation(new Vector3(Random.Range(3f, 100f), Random.Range(3f, 100f), Random.Range(3f, 100f)));
 
 		Vector3 euler = transform.eulerAngles;
+		if (rotation == -1f)
+			rotation = Random.Range(0, 360f);
 		euler.z = rotation;
 		rockWrapperBehaviour.transform.eulerAngles = euler;
 
