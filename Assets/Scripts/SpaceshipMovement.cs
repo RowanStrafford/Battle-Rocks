@@ -4,6 +4,7 @@ using System.Collections;
 public class SpaceshipMovement : MonoBehaviour {
 
     public float moveSpeed;
+    public float maxSpeed;
     public float boostSpeed;
     public GameObject cameraObject;
 
@@ -54,10 +55,13 @@ public class SpaceshipMovement : MonoBehaviour {
     {
         if(Input.GetKey(KeyCode.W))
         {
-            rb.AddForce(transform.right * force);
+            if (rb.velocity.magnitude > maxSpeed) rb.velocity = rb.velocity.normalized * maxSpeed;
+            else rb.AddForce(transform.right * force);
         }
 
         transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+
+        
     }
 
     public float GetPlayerSpeed()

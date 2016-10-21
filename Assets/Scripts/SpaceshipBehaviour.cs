@@ -12,6 +12,8 @@ public class SpaceshipBehaviour : MonoBehaviour {
 
     SpaceshipMovement spaceshipMovementScript;
 
+    public float rockSizeIgnore;
+
 	void Start ()
     {
         spaceshipMovementScript = GetComponent<SpaceshipMovement>();
@@ -39,7 +41,7 @@ public class SpaceshipBehaviour : MonoBehaviour {
         float speedAddition = Mathf.RoundToInt(playerSpeed);
         playerHealth -= Random.Range(1f, 3f) + speedAddition * meanSize;
 
-        if (meanSize < 0.6f) return;
+        if (meanSize < rockSizeIgnore) return;
         UpdateHealthBar();
          
     }
