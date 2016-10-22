@@ -26,26 +26,26 @@ public class SpaceshipMovement : MonoBehaviour {
     {
         rb = GetComponent<Rigidbody>();
 
-        particle1 = thruster1.GetComponent<ParticleSystem>();
-        particle2 = thruster2.GetComponent<ParticleSystem>();
+        //particle1 = thruster1.GetComponent<ParticleSystem>();
+        //particle2 = thruster2.GetComponent<ParticleSystem>();
 
-        emmisions1 = particle1.emission;
-        emmisions2 = particle2.emission;
+        //emmisions1 = particle1.emission;
+        //emmisions2 = particle2.emission;
 
-        emmisions1.enabled = false;
-        emmisions2.enabled = false;
+        //emmisions1.enabled = false;
+        //emmisions2.enabled = false;
     }
 
     void Update ()
     {
 		if (Input.GetKeyUp(KeyCode.W) || (Input.GetKeyUp(KeyCode.UpArrow))) {
-			emmisions1.enabled = false;
-			emmisions2.enabled = false;
+			//emmisions1.enabled = false;
+			//emmisions2.enabled = false;
 		}
         if(Input.GetKeyDown(KeyCode.W))
         {
-            emmisions1.enabled = true;
-            emmisions2.enabled = true;
+            //emmisions1.enabled = true;
+            //emmisions2.enabled = true;
         }
 
         //if (Input.GetKey(KeyCode.W))
@@ -79,9 +79,9 @@ public class SpaceshipMovement : MonoBehaviour {
     {
         if(Input.GetKey(KeyCode.W))
         {
-            //if (rb.velocity.magnitude > maxSpeed)
-			//	rb.velocity = rb.velocity.normalized * maxSpeed;
-            //else
+			if (rb.velocity.magnitude > maxSpeed) { }
+			//rb.velocity = rb.velocity.normalized * maxSpeed;
+			else
 				rb.AddForce(transform.right * force);
         }
 

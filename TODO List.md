@@ -1,15 +1,11 @@
 Tier 1:
 -Add Physics to
-	-Rocks
-	-Bullets
 	-Particles?
 -Add boundaries that delete everything when reached
--Scale mass with size
 -Create Rock splitting mechanic
 -Fix thrusters again
 -Add limit to ship speed// what stops things going infinitely fast in space?
 -Networking
--Add collisions to bullets
 -Go through game and use correct ForceModes
 
 Tier 2:
@@ -23,3 +19,4 @@ Tier 2:
 
 
 Tier 3:
+-Spin projectiles in cool way 

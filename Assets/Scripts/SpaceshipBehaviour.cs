@@ -25,7 +25,6 @@ public class SpaceshipBehaviour : MonoBehaviour {
     {
 		if (Input.GetButtonDown("Fire1"))//why does this need to be in update
 			fire();
-		
 	}
 
 	void fire() {
