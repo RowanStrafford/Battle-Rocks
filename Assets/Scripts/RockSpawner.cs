@@ -34,7 +34,6 @@ public class RockSpawner : MonoBehaviour {
 			rotation = Random.Range(0, 360f);
 
 		GameObject rock = Instantiate(rocks[Random.Range(0, rocks.Length)], spawnPos, Quaternion.identity) as GameObject;
-		RockBehaviour rockBehaviour = rock.GetComponent<RockBehaviour>();
 		Rigidbody rb = rock.GetComponent<Rigidbody>();
 
 		//Size
