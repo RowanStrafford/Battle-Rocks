@@ -36,6 +36,9 @@ public class SpaceshipMovement : MonoBehaviour {
         //emmisions2.enabled = false;
     }
 
+	
+
+
     void Update ()
     {
 		if (Input.GetKeyUp(KeyCode.W) || (Input.GetKeyUp(KeyCode.UpArrow))) {

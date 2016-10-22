@@ -47,7 +47,7 @@ public class BeamBehaviour : MonoBehaviour {
 			transform.localScale = transform.localScale*0.9f;
 			if((transform.localScale.x+ transform.localScale.y + transform.localScale.z) / 3 < 0.1f) {
 				Destroy(gameObject);
-				Debug.Log("DESTROYING");
+				//Debug.Log("DESTROYING");
 			}
 			
 		}
