@@ -4,7 +4,8 @@ Tier 1:
 -Add boundaries that delete everything when reached
 -Create Rock splitting mechanic
 -Fix thrusters again
--Add limit to ship speed// what stops things going infinitely fast in space?
+-Add limit to ship speed// what stops things going infinitely fast in space? SPOILER (sorta nothing)
+-slowly decrease force added at high speeds
 -Networking
 -Go through game and use correct ForceModes
 
