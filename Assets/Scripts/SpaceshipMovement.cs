@@ -79,8 +79,10 @@ public class SpaceshipMovement : MonoBehaviour {
     {
         if(Input.GetKey(KeyCode.W))
         {
-            if (rb.velocity.magnitude > maxSpeed) rb.velocity = rb.velocity.normalized * maxSpeed;
-            else rb.AddForce(transform.right * force);
+            //if (rb.velocity.magnitude > maxSpeed)
+			//	rb.velocity = rb.velocity.normalized * maxSpeed;
+            //else
+				rb.AddForce(transform.right * force);
         }
 
         transform.position = new Vector3(transform.position.x, transform.position.y, 0);
