@@ -21,3 +21,4 @@ Tier 2:
 
 Tier 3:
 -Spin projectiles in cool way 
+-Ship can be upgraded throughout game. Players progress is saved and loaded each game.  
