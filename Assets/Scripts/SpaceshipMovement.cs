@@ -52,6 +52,7 @@ public class SpaceshipMovement : MonoBehaviour {
 			if (rb.velocity.magnitude > maxSpeed)
 				rb.velocity = rb.velocity.normalized * maxSpeed;
 			else
+				rb.AddForce(transform.right * force, ForceMode.Acceleration);
         }
 
         transform.position = new Vector3(transform.position.x, transform.position.y, 0);
