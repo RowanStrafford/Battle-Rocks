@@ -26,45 +26,12 @@ public class SpaceshipMovement : MonoBehaviour {
     {
         rb = GetComponent<Rigidbody>();
 
-        //particle1 = thruster1.GetComponent<ParticleSystem>();
-        //particle2 = thruster2.GetComponent<ParticleSystem>();
-
-        //emmisions1 = particle1.emission;
-        //emmisions2 = particle2.emission;
-
-        //emmisions1.enabled = false;
-        //emmisions2.enabled = false;
+  
     }
 
-	
-
-
-    void Update ()
+	void Update ()
     {
-		if (Input.GetKeyUp(KeyCode.W) || (Input.GetKeyUp(KeyCode.UpArrow))) {
-			//emmisions1.enabled = false;
-			//emmisions2.enabled = false;
-		}
-        if(Input.GetKeyDown(KeyCode.W))
-        {
-            //emmisions1.enabled = true;
-            //emmisions2.enabled = true;
-        }
-
-        //if (Input.GetKey(KeyCode.W))
-        //{
-         //   speedUpTimer += Time.deltaTime;
-         //   if (speedUpTimer > 1.0f) transform.Translate(Time.deltaTime * boostSpeed, 0, 0);              
-          //  else transform.Translate(Time.deltaTime * moveSpeed, 0, 0);
-        //}
-       // else if ((Input.GetKey(KeyCode.S) || (Input.GetKey(KeyCode.DownArrow)))) transform.Translate(-Time.deltaTime * moveSpeed, 0, 0);
-
-        //if (Input.GetKeyUp(KeyCode.W))
-        //{
-            //speedUpTimer = 0f;
-         //   emmisions1.enabled = false;
-         //   emmisions2.enabled = false;
-        //}
+	
 
         Vector3 mousePos = Input.mousePosition;
         Vector3 objectPos = Camera.main.WorldToScreenPoint(transform.position);
@@ -82,10 +49,9 @@ public class SpaceshipMovement : MonoBehaviour {
     {
         if(Input.GetKey(KeyCode.W))
         {
-			if (rb.velocity.magnitude > maxSpeed) { }
-			//rb.velocity = rb.velocity.normalized * maxSpeed;
+			if (rb.velocity.magnitude > maxSpeed)
+				rb.velocity = rb.velocity.normalized * maxSpeed;
 			else
-				rb.AddForce(transform.right * force);
         }
 
         transform.position = new Vector3(transform.position.x, transform.position.y, 0);
