@@ -7,33 +7,59 @@ public class BeamBehaviour : MonoBehaviour {
 
     public float speed;
 
-	public float damage;
+	public float dmgMult;
 
 	public Rigidbody rb;
-	public float bulletDensity = 10f;
+	public float bulletDensity = 15f;
+
+	private float vel;
+	public float minVel;
+	private float lowVelTime = 0;
 
 	void Start ()
     {
-		rb.AddForce(transform.right * 100 * speed);
+		vel = speed;
+		rb.AddForce(transform.right * speed, ForceMode.VelocityChange);
 		Destroy(gameObject, 10.0f);
 		rb.SetDensity(bulletDensity);
+		
 	}
 	
-	void Update ()
-    {
-        //transform.Translate(Time.deltaTime * bulletSpeed, 0, 0);//Change to force
+	void Update () {
+		
+		
 	}
 
 	void FixedUpdate() {
 		Vector3 pos = transform.position;
 		pos.z = 0;
 		transform.position = pos;
+
+		//Debug.Log(vel);
+		vel = rb.velocity.magnitude;// velocity seems to have a delay to being set in the physics engine
+		if (vel < minVel) {
+			lowVelTime += Time.fixedDeltaTime;
+		} else {
+			lowVelTime = 0;
+		}
+
+		if (lowVelTime >= 0.05f) {
+			transform.localScale = transform.localScale*0.9f;
+			if((transform.localScale.x+ transform.localScale.y + transform.localScale.z) / 3 < 0.1f) {
+				Destroy(gameObject);
+				Debug.Log("DESTROYING");
+			}
+			
+		}
 	}
 
-    void OnTriggerEnter(Collider col)
-    {
-        if(col.tag == "Rock")
-        {
+
+
+	void OnCollisionEnter(Collision col) {
+		//Destroy(gameObject);
+
+	}
+			
 			/*
             RockBehaviour rockBehaviour = col.GetComponent<RockBehaviour>();
             Renderer rockRenderer = col.GetComponent<Renderer>();
@@ -81,9 +107,9 @@ public class BeamBehaviour : MonoBehaviour {
                 Destroy(col.gameObject);
              }
 			 */
-        }
+      //  }
 
        // Destroy(gameObject);
 
-    }
+   // }
 }
