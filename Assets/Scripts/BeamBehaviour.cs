@@ -5,28 +5,40 @@ public class BeamBehaviour : MonoBehaviour {
 
     public GameObject[] rocks;
 
-    public float bulletSpeed;
+    public float speed;
 
 	public float damage;
 
+	public Rigidbody rb;
+	public float bulletDensity = 10f;
+
 	void Start ()
     {
-        Destroy(gameObject, 10.0f);
+		rb.AddForce(transform.right * 100 * speed);
+		Destroy(gameObject, 10.0f);
+		rb.SetDensity(bulletDensity);
 	}
 	
 	void Update ()
     {
-        transform.Translate(Time.deltaTime * bulletSpeed, 0, 0);//Change to force
+        //transform.Translate(Time.deltaTime * bulletSpeed, 0, 0);//Change to force
 	}
-    
+
+	void FixedUpdate() {
+		Vector3 pos = transform.position;
+		pos.z = 0;
+		transform.position = pos;
+	}
+
     void OnTriggerEnter(Collider col)
     {
         if(col.tag == "Rock")
         {
+			/*
             RockBehaviour rockBehaviour = col.GetComponent<RockBehaviour>();
             Renderer rockRenderer = col.GetComponent<Renderer>();
 
-            Debug.Log(col.transform.localScale.x + col.transform.localScale.y + col.transform.localScale.z / 3);
+            //Debug.Log(col.transform.localScale.x + col.transform.localScale.y + col.transform.localScale.z / 3);
 
 
             if (rockBehaviour.GetHealth() > 0)
@@ -34,7 +46,7 @@ public class BeamBehaviour : MonoBehaviour {
                 rockBehaviour.takeDamage(damage);
             } else
             {
-
+			*/
 				/*
 				1.rock is destroyed
 				2.rock splits into smaller rocks unless that size is less than 0.5
@@ -46,7 +58,7 @@ public class BeamBehaviour : MonoBehaviour {
 
 
 				*/
-
+				/*
                 float meanRockSize = (col.transform.localScale.x + col.transform.localScale.y + col.transform.localScale.z) / 3;
                 float adjustedMeanRockSize = meanRockSize * 0.8f; // Their will be some loss in the rock size
                 int randNumOfRocks = Random.Range(3, 5);
@@ -68,10 +80,10 @@ public class BeamBehaviour : MonoBehaviour {
                 } 
                 Destroy(col.gameObject);
              }
-
+			 */
         }
 
-        Destroy(gameObject);
+       // Destroy(gameObject);
 
     }
 }

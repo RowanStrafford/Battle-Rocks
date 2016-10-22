@@ -7,6 +7,7 @@ public class SpaceshipBehaviour : MonoBehaviour {
     public GameObject beam;
     public GameObject beamSpawnPos;
 
+
     private float playerHealth = 100;
     public Scrollbar healthBar;
 
@@ -22,8 +23,15 @@ public class SpaceshipBehaviour : MonoBehaviour {
 	
 	void Update ()
     {
-	    if(Input.GetButtonDown("Fire1")) Instantiate(beam, beamSpawnPos.transform.position, transform.rotation);
-    }
+		if (Input.GetButtonDown("Fire1"))//why does this need to be in update
+			fire();
+	}
+
+	void fire() {
+		GameObject bullet = Instantiate(beam, beamSpawnPos.transform.position, transform.rotation) as GameObject;
+		Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
+		bulletRb.AddForce(GetComponent<Rigidbody>().velocity, ForceMode.VelocityChange);//SON OF A BITCH
+	}
 
     void UpdateHealthBar()
     {

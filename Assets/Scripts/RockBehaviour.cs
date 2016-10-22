@@ -4,10 +4,9 @@ using System;
 
 public class RockBehaviour : MonoBehaviour {
 
-    public float rotateSpeed;
-    private Vector3 rotation;
+	//Physics
 	public Rigidbody rb;
-	public float speed;
+	public float density = 2f;
 
     private float health;	
 
@@ -15,6 +14,9 @@ public class RockBehaviour : MonoBehaviour {
     {
         float meanRockSize = (transform.localScale.x + transform.localScale.y + transform.localScale.z) / 3;
         health = 10 * meanRockSize;
+		//Debug.Log(rb.mass);
+		rb.SetDensity(density);
+		//Debug.Log(rb.mass);
 	}
 	
 	void Update() {
@@ -27,12 +29,6 @@ public class RockBehaviour : MonoBehaviour {
 		transform.position = pos;
 	}
 
-    public void SetRotation(Vector3 rotation)
-    {
-		this.rotation = rotation;
-		rb.AddTorque(rotation);
-	}
-
     public void takeDamage(float damage)
     {
         health -= damage;
@@ -43,16 +39,4 @@ public class RockBehaviour : MonoBehaviour {
         return health;
     }
 
-	public float GetSpeed() {
-		return speed;
-	}
-
-	public void SetSpeed(float speed) {
-		this.speed = speed;
-	}
-
-	public void SetDirection(Vector3 euler, float speed) {
-		transform.eulerAngles = euler;
-		rb.AddForce(transform.right*100*speed);
-	}
 }
