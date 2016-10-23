@@ -33,15 +33,15 @@ public class Ship : PhysicsObject {
 			emmisions.enabled = true;
         if (Input.GetKeyUp(KeyCode.W))
 			emmisions.enabled = false;
-		if (Input.GetKey(KeyCode.W)) {
-			rb.AddForce(transform.right * force-(rb.velocity/10), ForceMode.Force);
-			Debug.Log(transform.right * force +" - "+ (rb.velocity / 10));
-		}
+		
 	}
 
 	new void FixedUpdate() {
 		base.FixedUpdate();
-		
+		if (Input.GetKey(KeyCode.W)) {
+			rb.AddForce(transform.right * force - (rb.velocity / 10), ForceMode.Force);
+			//Debug.Log(transform.right + " " + force + " - " + (rb.velocity / 10));
+		}
 		EnforceBoundaries();
 	}
 
