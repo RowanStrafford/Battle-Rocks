@@ -19,7 +19,6 @@ public abstract class PhysicsObject : MonoBehaviour {
 		health = maxHealth;
 	}
 
-
 	// Update is called once per frame
 	protected void Update() {
 		EnforceBoundaries();
@@ -40,14 +39,18 @@ public abstract class PhysicsObject : MonoBehaviour {
 	virtual public void takeDamage(float damage) {
 		health -= damage;
 		if (health <= 0)
-			Destroy(gameObject);
+			Die(damage);
+	}
+
+	virtual protected void Die(float damage) {
+		Destroy(gameObject);
 	}
 
 	public float GetHealth() {
 		return health;
 	}
 
-	public void resetHealth() {
+	public void ResetHealth() {
 		health = maxHealth;
 	}
 
