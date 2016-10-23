@@ -37,7 +37,9 @@ public class RockSpawner : MonoBehaviour {
 		Rigidbody rb = rock.GetComponent<Rigidbody>();
 
 		//Size
-		rock.transform.localScale = new Vector3(Random.Range(0.2f * size, 0.8f * size), Random.Range(0.2f * size, 0.8f * size), Random.Range(0.2f * size, 0.8f * size));
+		rock.transform.localScale = new Vector3(Random.Range(0.2f * size, 1f * size), Random.Range(0.2f * size, 1f * size), Random.Range(0.2f * size, 1f * size));
+		if (Random.Range(0, 10f) > 9.9)
+			rock.transform.localScale = rock.transform.localScale * 5;
 
 		//Direction
 		rock.transform.eulerAngles = new Vector3(0, 0, rotation);

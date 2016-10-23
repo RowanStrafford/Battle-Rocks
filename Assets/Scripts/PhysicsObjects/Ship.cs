@@ -62,12 +62,14 @@ public class Ship : PhysicsObject {
 		transform.rotation = Quaternion.Euler(new Vector3(0, 0, playerRotationAngle));
 	}
 
-	void EnforceBoundaries() {
-		if (transform.position.x < Map.X|| transform.position.x > Map.X + Map.W || transform.position.y < Map.Y || transform.position.y > Map.Y + Map.H)
-			rb.velocity *= -1;
-			//transform.position = new Vector3(-90f, transform.position.y, transform.position.z);
-		//if () transform.position = new Vector3(90f, transform.position.y, transform.position.z);
-		//if () transform.position = new Vector3(transform.position.x, -38f, transform.position.z);
-		//if () transform.position = new Vector3(transform.position.x, 38f, transform.position.z);
+	override protected void EnforceBoundaries() {
+		if (transform.position.x < Map.X)
+			transform.position = new Vector3(-90f, transform.position.y, transform.position.z);
+		if (transform.position.x > Map.X + Map.W)
+			transform.position = new Vector3(90f, transform.position.y, transform.position.z);
+		if (transform.position.y < Map.Y)
+			transform.position = new Vector3(transform.position.x, -38f, transform.position.z);
+		if (transform.position.y > Map.Y + Map.H)
+			transform.position = new Vector3(transform.position.x, 38f, transform.position.z);
 	}
 }
