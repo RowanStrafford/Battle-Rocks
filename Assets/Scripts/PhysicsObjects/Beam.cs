@@ -16,14 +16,15 @@ public class Beam : PhysicsObject {
 	//Class
 	public float lifeTime = 10f;
 
-	void Start() {
+	new void Start() {
 		base.Start();
 		//Physics
-		rb.AddForce(transform.right * DEFAULT_SPEED, ForceMode.VelocityChange);
-		rb.SetDensity(density);
+		rb.AddForce(transform.right * vel, ForceMode.VelocityChange);
 
-		health = healthMult * rb.mass;
 		Destroy(gameObject, lifeTime);
+
+		Debug.Log("Health: " + health + ", mass: " + rb.mass);
+		
 	}
 
 	protected override void setVars() {
@@ -32,9 +33,11 @@ public class Beam : PhysicsObject {
 
 	}
 
-	void Update() { }
+	new void Update() {
+		//Debug.Log("Velocity: " + rb.velocity.magnitude);
+	}
 
-	void FixedUpdate() {
+	new void FixedUpdate() {
 		base.FixedUpdate();
 		HandleLowVel();
 	}

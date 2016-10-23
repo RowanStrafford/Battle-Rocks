@@ -3,7 +3,7 @@ using System.Collections;
 
 public abstract class PhysicsObject : MonoBehaviour {
 
-	public Rigidbody rb;
+	protected Rigidbody rb;//accessing it publicly does not work
 	protected float maxHealth;
 	protected float health;
 	public float healthMult;
@@ -28,7 +28,7 @@ public abstract class PhysicsObject : MonoBehaviour {
 	}
 
 	// Update is called once per frame
-	void Update() {
+	protected void Update() {
 
 	}
 
@@ -44,7 +44,7 @@ public abstract class PhysicsObject : MonoBehaviour {
 	void OnCollisionEnter(Collision col) {
 
 		float collisionForce = col.relativeVelocity.magnitude;
-		//Debug.Log(collisionForce);
+		Debug.Log("Collision Force: "+collisionForce);
 
 		PhysicsObject physicsObject = col.gameObject.GetComponent<PhysicsObject>();
 		physicsObject.takeDamage(collisionForce);

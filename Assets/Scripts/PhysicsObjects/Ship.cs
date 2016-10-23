@@ -13,36 +13,38 @@ public class Ship : PhysicsObject {
 	public GameObject beamSpawnPos;
 
 
-	public Scrollbar healthBar;
+	//public Scrollbar healthBar;
 
 	// Use this for initialization
-	void Start () {
+	new void Start () {
 		base.Start();
 		UpdateHealthBar();
-
-
+		Debug.Log("Health: " + health + ", mass: " + rb.mass);
 	}
-	
+
 	// Update is called once per frame
-	void Update () {
+	new void Update () {
 		setRotation();
 		if (Input.GetButtonDown("Fire1"))//why does this need to be in update
 			fire();
 	}
 
-	void FixedUpdate() {
+	new void FixedUpdate() {
 		base.FixedUpdate();
 		if (Input.GetKey(KeyCode.W)) {
 			rb.AddForce(transform.right * force, ForceMode.Force);
-			Debug.Log(transform.right * force);
 		}
 		EnforceBoundaries();
 	}
 
 	void fire() {
 		GameObject bullet = Instantiate(beam, beamSpawnPos.transform.position, transform.rotation) as GameObject;
-		Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
-		bulletRb.AddForce(GetComponent<Rigidbody>().velocity, ForceMode.VelocityChange);//SON OF A BITCH
+		//Debug.Log("Velocity: " + bullet.rb.velocity.magnitude);
+		//bullet.rb.AddForce(
+		Rigidbody beamRb = bullet.GetComponent<Rigidbody>();
+		beamRb.AddForce(rb.velocity+beamRb.velocity, ForceMode.VelocityChange);//SON OF A BITCH
+		
+		//Debug.Log("Velocity: " + bullet.rb.velocity.magnitude);
 	}
 
 	/*public void takeDamage(float damage) {
@@ -52,7 +54,7 @@ public class Ship : PhysicsObject {
 	}*/
 
 	void UpdateHealthBar() {
-		healthBar.size = health / 100;
+		//healthBar.size = health / 100;
 	}
 
 	void setRotation() {

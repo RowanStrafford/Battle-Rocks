@@ -8,7 +8,7 @@ public class Rock : PhysicsObject {
 	static float DEFAULT_DENSITY = 2f;
 
 
-	void Start ()
+	new void Start ()
     {
 		base.Start();
 		//Physics
@@ -17,9 +17,9 @@ public class Rock : PhysicsObject {
 		Debug.Log("Health: " + health + ", mass: " + rb.mass);
 	}
 
-	void Update() {	}
+	new void Update() {	}
 
-	void FixedUpdate() {
+	new void FixedUpdate() {
 		base.FixedUpdate();
 	}
 
