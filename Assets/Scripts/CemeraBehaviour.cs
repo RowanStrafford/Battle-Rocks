@@ -9,15 +9,8 @@ public class CemeraBehaviour : MonoBehaviour {
     public float smoothTime = 0.3F;
     private Vector3 velocity = Vector3.zero;
 
-    void Start ()
+   	void FixedUpdate ()
     {
-	
-	}
-	
-	void FixedUpdate ()
-    {
-        //transform.position = new Vector3(player.transform.position.x, player.transform.position.y, -10.0f);
-
         float height = 2f * cam.orthographicSize;
         float width = height * cam.aspect;
 
