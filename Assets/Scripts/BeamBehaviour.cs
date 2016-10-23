@@ -3,26 +3,33 @@ using System.Collections;
 
 public class BeamBehaviour : MonoBehaviour {
 
-    public GameObject[] rocks;
-
-    public float speed;
-
-	public float dmgMult;
-
+	//Physics
 	public Rigidbody rb;
-	public float bulletDensity = 15f;
+	public float density = 15f;
+	public float speed;
 
 	private float vel;
 	public float minVel;
 	private float lowVelTime = 0;
 
+
+	//Class
+	public GameObject[] rocks;
+	public float dmgMult;
+	private float health;
+	public float lifeTime = 10f;
+	
 	void Start ()
     {
+		//Physics
 		vel = speed;
 		rb.AddForce(transform.right * speed, ForceMode.VelocityChange);
-		Destroy(gameObject, 10.0f);
-		rb.SetDensity(bulletDensity);
-		
+		rb.SetDensity(density);
+
+		health = 10 * rb.mass;
+		//Debug.Log("Health: " + health);
+		Destroy(gameObject, lifeTime);
+
 	}
 	
 	void Update () {
@@ -56,6 +63,12 @@ public class BeamBehaviour : MonoBehaviour {
 
 
 	void OnCollisionEnter(Collision col) {
+
+		float collisionForce = col.relativeVelocity.magnitude;
+		Debug.Log(collisionForce);
+
+		RockBehaviour rockBehaviour = col.gameObject.GetComponent<RockBehaviour>();
+		rockBehaviour.takeDamage(collisionForce);
 		//Destroy(gameObject);
 
 	}

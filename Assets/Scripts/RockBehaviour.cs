@@ -8,17 +8,18 @@ public class RockBehaviour : MonoBehaviour {
 	public Rigidbody rb;
 	public float density = 2f;
 
-    private float health;	
+    private float health;
 
 	void Start ()
     {
+		//Physics
         float meanRockSize = (transform.localScale.x + transform.localScale.y + transform.localScale.z) / 3;
-        health = 10 * meanRockSize;
-		//Debug.Log(rb.mass);
 		rb.SetDensity(density);
-		//Debug.Log(rb.mass);
+
+		health = 10 * rb.mass;
+		//Debug.Log("Health: " + health + ", meanRockSize: " + meanRockSize + ", mass: " + rb.mass);
 	}
-	
+
 	void Update() {
 		//transform.Rotate(rotation * Time.deltaTime);
 	}
@@ -32,6 +33,8 @@ public class RockBehaviour : MonoBehaviour {
     public void takeDamage(float damage)
     {
         health -= damage;
+		if (health <= 0)
+			Destroy(gameObject);
     }
 
     public float GetHealth()
