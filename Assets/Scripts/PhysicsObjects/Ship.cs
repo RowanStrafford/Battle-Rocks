@@ -35,6 +35,7 @@ public class Ship : PhysicsObject {
 			emmisions.enabled = false;
 		if (Input.GetKey(KeyCode.W)) {
 			rb.AddForce(transform.right * force-(rb.velocity/10), ForceMode.Force);
+			Debug.Log(transform.right * force +" - "+ (rb.velocity / 10));
 		}
 	}
 
