@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class Ship : PhysicsObject {
 
-	public float force = 3.0f;
+	public float force;
 
 	public GameObject beam;
 	public GameObject beamSpawnPos;
