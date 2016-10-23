@@ -4,15 +4,13 @@ using UnityEngine.UI;
 
 public class Ship : PhysicsObject {
 
-	public GameObject cameraObject;
-
 	public float force = 3.0f;
 
 	public GameObject beam;
 	public GameObject beamSpawnPos;
 
+	//Thruster
     public Scrollbar healthBar;
-
     public GameObject thruster;
     private ParticleSystem particle;
     ParticleSystem.EmissionModule emmisions;
