@@ -42,11 +42,11 @@ public abstract class PhysicsObject : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision col) {
-		Debug.Log("imp: " + col.impulse.magnitude + ", relVel: " + col.relativeVelocity.magnitude); 
-		float collisionForce = col.relativeVelocity.magnitude;
-		//Debug.Log("Collision Force: "+collisionForce);
-
 		PhysicsObject physicsObject = col.gameObject.GetComponent<PhysicsObject>();
+		float collisionForce = col.relativeVelocity.magnitude * rb.mass * dmgMult;
+		//physicsObject.GetComponent<Rigidbody>().mass
+		Debug.Log("collisionForce: " + collisionForce); 
+
 		physicsObject.takeDamage(collisionForce);
 
 	}
