@@ -15,7 +15,7 @@ public abstract class PhysicsObject : MonoBehaviour {
 	protected void Start() {
 		rb = GetComponent<Rigidbody>();
 		rb.SetDensity(density);
-		maxHealth = rb.mass * healthMult;
+		maxHealth = rb.mass* healthMult;
 		health = maxHealth;
 	}
 
@@ -33,26 +33,26 @@ public abstract class PhysicsObject : MonoBehaviour {
 	}
 
 	protected void FixedUpdate() {
-		Vector3 pos = transform.position;
-		pos.z = 0;
-		transform.position = pos;
+		//Vector3 pos = transform.position;
+		//pos.z = 0;
+		//transform.position = pos;
 
 		if (rb.velocity.magnitude > maxVel)
 			rb.velocity = rb.velocity.normalized * maxVel;
 	}
 
 	void OnCollisionEnter(Collision col) {
-
+		Debug.Log("imp: " + col.impulse.magnitude + ", relVel: " + col.relativeVelocity.magnitude); 
 		float collisionForce = col.relativeVelocity.magnitude;
-		Debug.Log("Collision Force: "+collisionForce);
+		//Debug.Log("Collision Force: "+collisionForce);
 
 		PhysicsObject physicsObject = col.gameObject.GetComponent<PhysicsObject>();
 		physicsObject.takeDamage(collisionForce);
 
 	}
 
-	public void takeDamage(float damage) {
-		//Debug.Log(damage+" hp "+health);
+	virtual public void takeDamage(float damage) {
+		Debug.Log("dmg: "+damage+", hp: "+health+", mass: "+rb.mass);
 		health -= damage;
 		if (health <= 0)
 			Destroy(gameObject);

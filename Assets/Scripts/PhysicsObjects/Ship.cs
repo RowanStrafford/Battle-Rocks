@@ -8,18 +8,15 @@ public class Ship : PhysicsObject {
 
 	public float force = 3.0f;
 
-
 	public GameObject beam;
 	public GameObject beamSpawnPos;
 
 
 	//public Scrollbar healthBar;
 
-	// Use this for initialization
 	new void Start () {
 		base.Start();
 		UpdateHealthBar();
-		Debug.Log("Health: " + health + ", mass: " + rb.mass);
 	}
 
 	// Update is called once per frame
@@ -39,19 +36,16 @@ public class Ship : PhysicsObject {
 
 	void fire() {
 		GameObject bullet = Instantiate(beam, beamSpawnPos.transform.position, transform.rotation) as GameObject;
-		//Debug.Log("Velocity: " + bullet.rb.velocity.magnitude);
-		//bullet.rb.AddForce(
 		Rigidbody beamRb = bullet.GetComponent<Rigidbody>();
-		beamRb.AddForce(rb.velocity+beamRb.velocity, ForceMode.VelocityChange);//SON OF A BITCH
+		beamRb.velocity += rb.velocity;
 		
-		//Debug.Log("Velocity: " + bullet.rb.velocity.magnitude);
 	}
 
-	/*public void takeDamage(float damage) {
+	override public void takeDamage(float damage) {
 		health -= damage;
 		if (health <= 0)
-			Debug.Log("SHIP DIED");
-	}*/
+			Debug.Log("SHIP DEAD");
+	}
 
 	void UpdateHealthBar() {
 		//healthBar.size = health / 100;
@@ -69,9 +63,11 @@ public class Ship : PhysicsObject {
 	}
 
 	void EnforceBoundaries() {
-		if (transform.position.x < -90f) transform.position = new Vector3(-90f, transform.position.y, transform.position.z);
-		if (transform.position.x > 90f) transform.position = new Vector3(90f, transform.position.y, transform.position.z);
-		if (transform.position.y < -38f) transform.position = new Vector3(transform.position.x, -38f, transform.position.z);
-		if (transform.position.y > 38f) transform.position = new Vector3(transform.position.x, 38f, transform.position.z);
+		if (transform.position.x < Map.X|| transform.position.x > Map.X + Map.W || transform.position.y < Map.Y || transform.position.y > Map.Y + Map.H)
+			rb.velocity *= -1;
+			//transform.position = new Vector3(-90f, transform.position.y, transform.position.z);
+		//if () transform.position = new Vector3(90f, transform.position.y, transform.position.z);
+		//if () transform.position = new Vector3(transform.position.x, -38f, transform.position.z);
+		//if () transform.position = new Vector3(transform.position.x, 38f, transform.position.z);
 	}
 }
