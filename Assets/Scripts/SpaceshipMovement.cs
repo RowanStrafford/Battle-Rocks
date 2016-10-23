@@ -13,27 +13,21 @@ public class SpaceshipMovement : MonoBehaviour {
     public float force = 3.0f;
     private Rigidbody rb;
 
-    public GameObject thruster1;
-    public GameObject thruster2;
+    public GameObject thruster;
 
-    private ParticleSystem particle1;
-    private ParticleSystem particle2;
+    private ParticleSystem particle;
 
-    ParticleSystem.EmissionModule emmisions1;
-    ParticleSystem.EmissionModule emmisions2;
+    ParticleSystem.EmissionModule emmisions;
 
     void Start ()
     {
         rb = GetComponent<Rigidbody>();
 
-        //particle1 = thruster1.GetComponent<ParticleSystem>();
-        //particle2 = thruster2.GetComponent<ParticleSystem>();
+        particle = thruster.GetComponent<ParticleSystem>();
 
-        //emmisions1 = particle1.emission;
-        //emmisions2 = particle2.emission;
+        emmisions = particle.emission;
 
-        //emmisions1.enabled = false;
-        //emmisions2.enabled = false;
+        emmisions.enabled = false;
     }
 
 	
@@ -42,30 +36,13 @@ public class SpaceshipMovement : MonoBehaviour {
     void Update ()
     {
 		if (Input.GetKeyUp(KeyCode.W) || (Input.GetKeyUp(KeyCode.UpArrow))) {
-			//emmisions1.enabled = false;
-			//emmisions2.enabled = false;
+			emmisions.enabled = false;
 		}
         if(Input.GetKeyDown(KeyCode.W))
         {
-            //emmisions1.enabled = true;
-            //emmisions2.enabled = true;
+            emmisions.enabled = true;
         }
-
-        //if (Input.GetKey(KeyCode.W))
-        //{
-         //   speedUpTimer += Time.deltaTime;
-         //   if (speedUpTimer > 1.0f) transform.Translate(Time.deltaTime * boostSpeed, 0, 0);              
-          //  else transform.Translate(Time.deltaTime * moveSpeed, 0, 0);
-        //}
-       // else if ((Input.GetKey(KeyCode.S) || (Input.GetKey(KeyCode.DownArrow)))) transform.Translate(-Time.deltaTime * moveSpeed, 0, 0);
-
-        //if (Input.GetKeyUp(KeyCode.W))
-        //{
-            //speedUpTimer = 0f;
-         //   emmisions1.enabled = false;
-         //   emmisions2.enabled = false;
-        //}
-
+        
         Vector3 mousePos = Input.mousePosition;
         Vector3 objectPos = Camera.main.WorldToScreenPoint(transform.position);
 
