@@ -34,18 +34,18 @@ public class Ship : PhysicsObject {
 		setRotation();
 		if (Input.GetButtonDown("Fire1"))//why does this need to be in update
 			fire();
-
-        if (Input.GetKeyDown(KeyCode.W)) emmisions.enabled = true;
-        if (Input.GetKeyUp(KeyCode.W)) emmisions.enabled = false;
-
-        UpdateHealthBar();
-    }
+        if (Input.GetKeyDown(KeyCode.W))
+			emmisions.enabled = true;
+        if (Input.GetKeyUp(KeyCode.W))
+			emmisions.enabled = false;
+		if (Input.GetKey(KeyCode.W)) {
+			rb.AddForce(transform.right * force-(rb.velocity/10), ForceMode.Force);
+		}
+	}
 
 	new void FixedUpdate() {
 		base.FixedUpdate();
-		if (Input.GetKey(KeyCode.W)) {
-			rb.AddForce(transform.right * force, ForceMode.Force);
-        }
+		
 		EnforceBoundaries();
 	}
 
@@ -53,7 +53,11 @@ public class Ship : PhysicsObject {
 		GameObject bullet = Instantiate(beam, beamSpawnPos.transform.position, transform.rotation) as GameObject;
 		Rigidbody beamRb = bullet.GetComponent<Rigidbody>();
 		beamRb.velocity += rb.velocity;
-		
+	}
+
+	override protected void OnCollisionEnter(Collision col) {
+		base.OnCollisionEnter(col);
+		UpdateHealthBar();
 	}
 
 	override public void takeDamage(float damage) {

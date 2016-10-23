@@ -41,14 +41,13 @@ public abstract class PhysicsObject : MonoBehaviour {
 			rb.velocity = rb.velocity.normalized * maxVel;
 	}
 
-	void OnCollisionEnter(Collision col) {
+	virtual protected void OnCollisionEnter(Collision col) {
 		PhysicsObject physicsObject = col.gameObject.GetComponent<PhysicsObject>();
 		float collisionForce = col.relativeVelocity.magnitude * rb.mass * dmgMult;
 		//physicsObject.GetComponent<Rigidbody>().mass
 		//Debug.Log("collisionForce: " + collisionForce); 
 
 		physicsObject.takeDamage(collisionForce);
-
 	}
 
 	virtual public void takeDamage(float damage) {
