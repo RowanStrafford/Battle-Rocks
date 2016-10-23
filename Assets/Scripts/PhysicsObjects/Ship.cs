@@ -15,9 +15,6 @@ public class Ship : PhysicsObject {
     private ParticleSystem particle;
     ParticleSystem.EmissionModule emmisions;
 
-
-    //public Scrollbar healthBar;
-
     new void Start () {
 		base.Start();
 		UpdateHealthBar();
