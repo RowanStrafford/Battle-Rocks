@@ -4,13 +4,7 @@ using System.Collections;
 public class Beam : PhysicsObject {
 
 	//Physics
-	static float DEFAULT_DENSITY = 15f;
-	static float DEFAULT_SPEED = 20f;
-	static float HEALTH_MULT = 10f;
-
 	public float vel = 20f;
-	//public float minVel;
-	//private float lowVelTime = 0;
 
 	//Class
 	public float lifeTime = 10f;
@@ -21,35 +15,12 @@ public class Beam : PhysicsObject {
 		rb.velocity += vel*transform.right;
 		Destroy(gameObject, lifeTime);		
 	}
-
-	//protected override void setVars() {
-		//base.setVars();
-		//vel = DEFAULT_SPEED;
-	//}
-
+	
 	new void Update() {	}
 
 	new void FixedUpdate() {
 		base.FixedUpdate();
-	//	HandleLowVel();
 	}
-
-	//void HandleLowVel() {
-	//	vel = rb.velocity.magnitude;// velocity seems to have a delay to being set in the physics engine
-	//	if (vel < minVel) {
-	//		lowVelTime += Time.fixedDeltaTime;
-	//	} else {
-	//		lowVelTime = 0;
-	//	}
-
-		//if (lowVelTime >= 0.05f) {
-		//	transform.localScale = transform.localScale * 0.9f;
-		//	if ((transform.localScale.x + transform.localScale.y + transform.localScale.z) / 3 < 0.1f) {
-		//		Destroy(gameObject);
-		//		//Debug.Log("DESTROYING");
-		//	}
-		//}
-	//}
 }
 
 /*
