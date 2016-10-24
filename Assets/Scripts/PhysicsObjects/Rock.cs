@@ -5,16 +5,17 @@ public class Rock : PhysicsObject {
 
 	public GameObject[] rocks;
 
-	override protected void Start () {
+	new protected void Start () {
+		Debug.Log("new");
 		base.Start();
 		maxVel = 5;
 	}
 
-	override protected void Update() {
+	new protected void Update() {
 		base.Update();
 	}
 
-	override protected void FixedUpdate() {
+	new protected void FixedUpdate() {
 		base.FixedUpdate();
 	}
 
@@ -38,7 +39,6 @@ public class Rock : PhysicsObject {
 			Rigidbody rockRb = rock.GetComponent<Rigidbody>();
 			rockRb.velocity += rb.velocity;
 			rockRb.AddExplosionForce(damage, pos, rockSize, 0, ForceMode.Impulse);
-			
 		}
 	}
 

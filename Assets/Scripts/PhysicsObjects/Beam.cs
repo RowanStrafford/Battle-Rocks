@@ -9,7 +9,7 @@ public class Beam : PhysicsObject {
 	//Class
 	public float lifeTime = 10f;
 
-	override protected void Start() {
+	new protected void Start() {
 		base.Start();
 		maxVel = 40;
 		//Physics
@@ -17,11 +17,11 @@ public class Beam : PhysicsObject {
 		Destroy(gameObject, lifeTime);		
 	}
 
-	override protected void Update() {
+	new protected void Update() {
 		base.Update();
 	}
 
-	override protected void FixedUpdate() {
+	new protected void FixedUpdate() {
 		base.FixedUpdate();
 	}
 }

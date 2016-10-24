@@ -13,6 +13,7 @@ public abstract class PhysicsObject : MonoBehaviour {
 
 	// Use this for initialization
 	virtual protected void Start() {
+		Debug.Log("base");
 		rb = GetComponent<Rigidbody>();
 		rb.SetDensity(density);
 		maxHealth = rb.mass* healthMult;
@@ -25,6 +26,7 @@ public abstract class PhysicsObject : MonoBehaviour {
 	}
 
 	virtual protected void FixedUpdate() {
+		//Debug.Log(rb.velocity.magnitude);
 		if (rb.velocity.magnitude > maxVel)
 			rb.velocity = rb.velocity.normalized * maxVel;
 	}
