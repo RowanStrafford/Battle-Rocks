@@ -4,7 +4,7 @@ using System.Collections;
 public class Rock : PhysicsObject {
 
 	public GameObject[] rocks;
-
+	
 	new void Start () {
 		base.Start();
 	}

@@ -8,8 +8,8 @@ public abstract class PhysicsObject : MonoBehaviour {
 	protected float health;
 	public float healthMult;
 	public float density;
-	public float dmgMult;
-	public float maxVel;
+	public float dmgMult = 1;
+	public float maxVel = 20;
 
 	// Use this for initialization
 	protected void Start() {
