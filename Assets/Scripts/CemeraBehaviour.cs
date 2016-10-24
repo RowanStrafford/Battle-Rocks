@@ -9,6 +9,9 @@ public class CemeraBehaviour : MonoBehaviour {
     public float smoothTime = 0.3F;
     private Vector3 velocity = Vector3.zero;
 
+    public int minZoom;
+    public int maxZoom;
+
    	void FixedUpdate ()
     {
         float height = 2f * cam.orthographicSize;
@@ -16,8 +19,7 @@ public class CemeraBehaviour : MonoBehaviour {
 
         float heightHalf = height / 2;
         float widthHalf = width / 2;
-
-
+        
         if (transform.position.x < -90f + widthHalf) transform.position = new Vector3(-90f + widthHalf, transform.position.y, transform.position.z);
         if (transform.position.x > 90f - widthHalf) transform.position = new Vector3(90f - widthHalf, transform.position.y, transform.position.z);
         if (transform.position.y < -38f + heightHalf) transform.position = new Vector3(transform.position.x, -38f + heightHalf, transform.position.z);
@@ -25,8 +27,12 @@ public class CemeraBehaviour : MonoBehaviour {
 
         Vector3 targetPosition = new Vector3(player.transform.position.x, player.transform.position.y, -10);
 
-
         transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
+        
+        // Mouse wheel zooming
+        if (Input.GetAxis("Mouse ScrollWheel") < 0) cam.orthographicSize = Mathf.Max(Camera.main.orthographicSize - 1, minZoom);
+        if (Input.GetAxis("Mouse ScrollWheel") > 0) cam.orthographicSize = Mathf.Min(Camera.main.orthographicSize + 1, maxZoom);
+    }
+
     
-}
 }

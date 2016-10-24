@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class MenuRockMovement : MonoBehaviour {
 
@@ -19,6 +20,7 @@ public class MenuRockMovement : MonoBehaviour {
     void OnMouseDown()
     {
         StartSpinRock();
+        SceneManager.LoadScene(1);
     }
 
     void StartSpinRock()
