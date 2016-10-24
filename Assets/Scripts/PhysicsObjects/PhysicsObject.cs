@@ -12,7 +12,7 @@ public abstract class PhysicsObject : MonoBehaviour {
 	public float maxVel = 20;
 
 	// Use this for initialization
-	protected void Start() {
+	virtual protected void Start() {
 		rb = GetComponent<Rigidbody>();
 		rb.SetDensity(density);
 		maxHealth = rb.mass* healthMult;
@@ -20,11 +20,11 @@ public abstract class PhysicsObject : MonoBehaviour {
 	}
 
 	// Update is called once per frame
-	protected void Update() {
+	virtual protected void Update() {
 		EnforceBoundaries();
 	}
 
-	protected void FixedUpdate() {
+	virtual protected void FixedUpdate() {
 		if (rb.velocity.magnitude > maxVel)
 			rb.velocity = rb.velocity.normalized * maxVel;
 	}

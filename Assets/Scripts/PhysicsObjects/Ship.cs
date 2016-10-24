@@ -15,7 +15,7 @@ public class Ship : PhysicsObject {
     private ParticleSystem particle;
     ParticleSystem.EmissionModule emmisions;
 
-    new void Start () {
+	override protected void Start () {
 		base.Start();
 		UpdateHealthBar();
 
@@ -25,7 +25,8 @@ public class Ship : PhysicsObject {
     }
 
 	// Update is called once per frame
-	new void Update () {
+	override protected void Update () {
+		base.Update();
 		setRotation();
 		if (Input.GetButtonDown("Fire1"))//why does this need to be in update
 			fire();
@@ -36,7 +37,7 @@ public class Ship : PhysicsObject {
 		
 	}
 
-	new void FixedUpdate() {
+	override protected void FixedUpdate() {
 		base.FixedUpdate();
 		if (Input.GetKey(KeyCode.W)) {
 			rb.AddForce(transform.right * force - (rb.velocity / 10), ForceMode.Force);
