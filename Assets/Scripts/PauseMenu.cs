@@ -20,9 +20,11 @@ public class PauseMenu : MonoBehaviour {
     public Image settingsAndControlsScreen;
     public Image settingsHeadingText;
     public Image controlsHeadingText;
+    public Image doneBtn;
+
+    public Slider[] sliders;
 
     private AudioSource audio;
-    public AudioClip mouseOverSound;
 
     void Start ()
     {
@@ -33,17 +35,24 @@ public class PauseMenu : MonoBehaviour {
         settingsAndControlsScreen.color = new Color(1, 1, 1, 0);
         settingsHeadingText.color = new Color(1, 1, 1, 0);
         controlsHeadingText.color = new Color(1, 1, 1, 0);
+        doneBtn.color = new Color(1, 1, 1, 0);
         
         for (int i = 0; i < pauseMenuButtonsAndButtonText.Length; i++)
         {
             pauseMenuButtonsAndButtonText[i].enabled = false;
             pauseMenuButtonsAndButtonText[i].color = new Color(1, 1, 1, 0);
         }
+
+        for(int i = 0; i < sliders.Length; i++)
+        {
+            //sliders[i].
+        }
     }
 
     void Update ()
     {
         if (Input.GetKeyDown(KeyCode.Space)) PauseButtonClicked();
+        if (Input.GetButtonDown("Cancel")) DisplayPauseMenu();
 
         if (fadeSettingsAndControlsScreenIn)     // If the settings or controls screen should be faded in
         {
@@ -53,9 +62,22 @@ public class PauseMenu : MonoBehaviour {
             }
 
             FadeImage(settingsAndControlsScreen, 0.3f, pauseScreenFadeSpeed);
+            FadeImage(doneBtn, 0.3f, pauseScreenFadeSpeed);
+        }
+        else
+        {
+            for (int i = 0; i < pauseMenuButtonsAndButtonText.Length; i++)
+            {
+                FadeImage(pauseMenuButtonsAndButtonText[i], 0.3f, pauseScreenFadeSpeed);
+            }
+
+            FadeImage(settingsAndControlsScreen, 0f, pauseScreenFadeSpeed);
+            FadeImage(doneBtn, 0f, pauseScreenFadeSpeed);
+            settingsHeadingText.color = new Color(1, 1, 1, 0);
+            controlsHeadingText.color = new Color(1, 1, 1, 0);
         }
 
-        if(fadeSettings)
+        if (fadeSettings)
         {
             FadeImage(settingsHeadingText, 0.3f, pauseScreenFadeSpeed);
             controlsHeadingText.color = new Color(1, 1, 1, 0);
@@ -110,7 +132,7 @@ public class PauseMenu : MonoBehaviour {
         else fadeScreenIn = true;
 
         isPaused = !isPaused;
-    }
+    }   
 
     public void ResumeGame()
     {
@@ -120,13 +142,24 @@ public class PauseMenu : MonoBehaviour {
     public void DisplaySettings()
     {
         fadeSettings = true;
-        fadeSettingsAndControlsScreenIn = true;        
+        fadeSettingsAndControlsScreenIn = true;  
+        
+        for(int i = 0; i < pauseMenuButtonsAndButtonText.Length; i++) pauseMenuButtonsAndButtonText[i].enabled = false;        
     }
 
     public void DisplayControls()
     {
         fadeControls = true;
         fadeSettingsAndControlsScreenIn = true;
+
+        for (int i = 0; i < pauseMenuButtonsAndButtonText.Length; i++) pauseMenuButtonsAndButtonText[i].enabled = false;
+    }
+
+    public void DisplayPauseMenu()
+    {
+        fadeSettingsAndControlsScreenIn = false;
+        fadeSettings = false;
+        fadeControls = false;        
     }
 
     public void ExitToMainMenu()
