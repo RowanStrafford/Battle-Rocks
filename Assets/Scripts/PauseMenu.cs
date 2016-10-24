@@ -21,8 +21,13 @@ public class PauseMenu : MonoBehaviour {
     public Image settingsHeadingText;
     public Image controlsHeadingText;
 
+    private AudioSource audio;
+    public AudioClip mouseOverSound;
+
     void Start ()
     {
+        audio = GetComponent<AudioSource>();
+
         pauseText.color = new Color(1, 1, 1, 0);                
         pauseScreen.color = new Color(1, 1, 1, 0);
         settingsAndControlsScreen.color = new Color(1, 1, 1, 0);
@@ -31,6 +36,7 @@ public class PauseMenu : MonoBehaviour {
         
         for (int i = 0; i < pauseMenuButtonsAndButtonText.Length; i++)
         {
+            pauseMenuButtonsAndButtonText[i].enabled = false;
             pauseMenuButtonsAndButtonText[i].color = new Color(1, 1, 1, 0);
         }
     }
@@ -43,47 +49,59 @@ public class PauseMenu : MonoBehaviour {
         {
             for (int i = 0; i < pauseMenuButtonsAndButtonText.Length; i++)
             {
-                pauseMenuButtonsAndButtonText[i].color = new Color(1, 1, 1, Mathf.Lerp(pauseMenuButtonsAndButtonText[i].color.a, 0f, Time.deltaTime * pauseScreenFadeSpeed));
+                FadeImage(pauseMenuButtonsAndButtonText[i], 0f, pauseScreenFadeSpeed);
             }
 
-            settingsAndControlsScreen.color = new Color(1, 1, 1, Mathf.Lerp(settingsAndControlsScreen.color.a, pauseScreenAlphaValue, Time.deltaTime * pauseScreenFadeSpeed));
+            FadeImage(settingsAndControlsScreen, 0.3f, pauseScreenFadeSpeed);
         }
 
         if(fadeSettings)
         {
-            settingsHeadingText.color = new Color(1, 1, 1, Mathf.Lerp(settingsHeadingText.color.a, pauseScreenAlphaValue, Time.deltaTime * pauseScreenFadeSpeed));
+            FadeImage(settingsHeadingText, 0.3f, pauseScreenFadeSpeed);
             controlsHeadingText.color = new Color(1, 1, 1, 0);
             return;
-
         }
 
         if (fadeControls)
         {
+            FadeImage(controlsHeadingText, 0.3f, pauseScreenFadeSpeed);
             settingsHeadingText.color = new Color(1, 1, 1, 0);
-            controlsHeadingText.color = new Color(1, 1, 1, Mathf.Lerp(controlsHeadingText.color.a, pauseScreenAlphaValue, Time.deltaTime * pauseScreenFadeSpeed));
             return;
         }
 
         if (fadeScreenIn)
-        {            
-            pauseScreen.color = new Color(1, 1, 1, Mathf.Lerp(pauseScreen.color.a, pauseScreenAlphaValue, Time.deltaTime * pauseScreenFadeSpeed));
+        {
+            FadeImage(pauseScreen, 0.3f, pauseScreenFadeSpeed);
             pauseText.color = new Color(1, 1, 1, Mathf.Lerp(pauseText.color.a, 0.3f, Time.deltaTime * pauseScreenFadeSpeed));
 
-            for(int i = 0; i < pauseMenuButtonsAndButtonText.Length; i++)
-            {
-                pauseMenuButtonsAndButtonText[i].color = new Color(1, 1, 1, Mathf.Lerp(pauseMenuButtonsAndButtonText[i].color.a, pauseScreenAlphaValue, Time.deltaTime * pauseScreenFadeSpeed));
-            }
-        }
-        else
-        {            
-            pauseScreen.color = new Color(1, 1, 1, Mathf.Lerp(pauseScreen.color.a, 0f, Time.deltaTime * pauseScreenFadeSpeed));       
-            pauseText.color = new Color(1, 1, 1, Mathf.Lerp(pauseText.color.a, 0f, Time.deltaTime * pauseScreenFadeSpeed));
 
             for (int i = 0; i < pauseMenuButtonsAndButtonText.Length; i++)
             {
-                pauseMenuButtonsAndButtonText[i].color = new Color(1, 1, 1, Mathf.Lerp(pauseMenuButtonsAndButtonText[i].color.a, 0f, Time.deltaTime * pauseScreenFadeSpeed));
+                FadeImage(pauseMenuButtonsAndButtonText[i], 0.3f, pauseScreenFadeSpeed);
+                pauseMenuButtonsAndButtonText[i].enabled = true;
             }
         }
+        else
+        {
+            pauseText.color = new Color(1, 1, 1, Mathf.Lerp(pauseText.color.a, 0f, Time.deltaTime * pauseScreenFadeSpeed));
+            FadeImage(pauseScreen, 0f, pauseScreenFadeSpeed);
+            FadeImage(settingsAndControlsScreen, 0f, pauseScreenFadeSpeed);
+            FadeImage(settingsHeadingText, 0f, pauseScreenFadeSpeed);
+            FadeImage(controlsHeadingText, 0f, pauseScreenFadeSpeed);
+
+
+            for (int i = 0; i < pauseMenuButtonsAndButtonText.Length; i++)
+            {
+                FadeImage(pauseMenuButtonsAndButtonText[i], 0f, pauseScreenFadeSpeed);
+
+                pauseMenuButtonsAndButtonText[i].enabled = false;
+            }
+        }
+    }
+
+    void FadeImage(Image imageToFade, float amountToFadeTo, float fadeSpeed)
+    {
+        imageToFade.color = new Color(1, 1, 1, Mathf.Lerp(imageToFade.color.a, amountToFadeTo, Time.deltaTime * fadeSpeed));
     }
 
     public void PauseButtonClicked()
