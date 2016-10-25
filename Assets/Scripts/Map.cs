@@ -7,9 +7,11 @@ public class Map : MonoBehaviour {
     public static int Y = -38;
     public static int W = 180;
     public static int H = 76;
-	
-    // Use this for initialization
-    void Start () {
+
+	public static GameObject[] rocks;
+
+	// Use this for initialization
+	void Start () {
 	
 	}
 	

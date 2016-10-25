@@ -35,7 +35,7 @@ public class PauseMenu : MonoBehaviour {
         settingsAndControlsScreen.color = new Color(1, 1, 1, 0);
         settingsHeadingText.color = new Color(1, 1, 1, 0);
         controlsHeadingText.color = new Color(1, 1, 1, 0);
-        doneBtn.color = new Color(1, 1, 1, 0);
+        //doneBtn.color = new Color(1, 1, 1, 0);
         
         for (int i = 0; i < pauseMenuButtonsAndButtonText.Length; i++)
         {
@@ -123,7 +123,7 @@ public class PauseMenu : MonoBehaviour {
 
     void FadeImage(Image imageToFade, float amountToFadeTo, float fadeSpeed)
     {
-        imageToFade.color = new Color(1, 1, 1, Mathf.Lerp(imageToFade.color.a, amountToFadeTo, Time.deltaTime * fadeSpeed));
+       // imageToFade.color = new Color(1, 1, 1, Mathf.Lerp(imageToFade.color.a, amountToFadeTo, Time.deltaTime * fadeSpeed));
     }
 
     public void PauseButtonClicked()

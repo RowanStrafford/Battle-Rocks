@@ -16,20 +16,21 @@ public class Ship : PhysicsObject {
     ParticleSystem.EmissionModule emmisions;
 
     private AudioSource audio;
-    public AudioClip laserShot;
+    public AudioClip laserShot;   
 
-	override protected void Start () {
-        audio = GetComponent<AudioSource>();
-		base.Start();
+	new protected void Start() {
+        base.Start();
 		UpdateHealthBar();
 
         particle = thruster.GetComponent<ParticleSystem>();
         emmisions = particle.emission;
         emmisions.enabled = false;
+        audio = GetComponent<AudioSource>();
+
     }
 
-	// Update is called once per frame
-	override protected void Update () {
+    // Update is called once per frame
+    new protected void Update () {
 		base.Update();
 		setRotation();
 		if (Input.GetButtonDown("Fire1"))//why does this need to be in update
@@ -38,14 +39,12 @@ public class Ship : PhysicsObject {
 			emmisions.enabled = true;
         if (Input.GetKeyUp(KeyCode.W))
 			emmisions.enabled = false;
-		
 	}
 
-	override protected void FixedUpdate() {
+	new protected void FixedUpdate() {
 		base.FixedUpdate();
 		if (Input.GetKey(KeyCode.W)) {
-			rb.AddForce(transform.right * force - (rb.velocity / 10), ForceMode.Force);
-			//Debug.Log(transform.right + " " + force + " - " + (rb.velocity / 10));
+			rb.AddForce(transform.right * force - (rb.velocity / force*4), ForceMode.Force);
 		}
 		EnforceBoundaries();
 	}
