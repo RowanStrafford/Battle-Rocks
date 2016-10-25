@@ -17,7 +17,7 @@ public class Ship : PhysicsObject {
     private ParticleSystem particle;
     ParticleSystem.EmissionModule emmisions;
 
-    private AudioSource audio;
+    //private AudioSource audio;
     public AudioClip laserShot;
 
 	new protected void Start() {
@@ -27,7 +27,7 @@ public class Ship : PhysicsObject {
         particle = thruster.GetComponent<ParticleSystem>();
         emmisions = particle.emission;
         emmisions.enabled = false;
-		audio = GetComponent<AudioSource>();
+		//audio = GetComponent<AudioSource>();
 	}
 
     // Update is called once per frame
@@ -58,7 +58,7 @@ public class Ship : PhysicsObject {
 		GameObject bullet = Instantiate(beam, beamSpawnPos.transform.position, transform.rotation) as GameObject;
 		Rigidbody beamRb = bullet.GetComponent<Rigidbody>();
 		beamRb.velocity += rb.velocity;
-        audio.PlayOneShot(laserShot);
+		GetComponent<AudioSource>().PlayOneShot(laserShot);
 	}
 
 	override protected void OnCollisionEnter(Collision col) {

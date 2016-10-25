@@ -24,11 +24,11 @@ public class PauseMenu : MonoBehaviour {
 
     public Slider[] sliders;
 
-    private AudioSource audio;
+ //   private AudioSource audio;
 
     void Start ()
     {
-        audio = GetComponent<AudioSource>();
+        //audio = GetComponent<AudioSource>();
 
         pauseText.color = new Color(1, 1, 1, 0);                
         pauseScreen.color = new Color(1, 1, 1, 0);
