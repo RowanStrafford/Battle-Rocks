@@ -16,7 +16,10 @@ public class Ship : PhysicsObject {
     ParticleSystem.EmissionModule emmisions;
 
     private AudioSource audio;
-    public AudioClip laserShot;   
+    public AudioClip laserShot;
+
+	
+
 
 	new protected void Start() {
         base.Start();
@@ -25,9 +28,8 @@ public class Ship : PhysicsObject {
         particle = thruster.GetComponent<ParticleSystem>();
         emmisions = particle.emission;
         emmisions.enabled = false;
-        audio = GetComponent<AudioSource>();
-
-    }
+		audio = GetComponent<AudioSource>();
+	}
 
     // Update is called once per frame
     new protected void Update () {
@@ -38,7 +40,7 @@ public class Ship : PhysicsObject {
         if (Input.GetKeyDown(KeyCode.W))
 			emmisions.enabled = true;
         if (Input.GetKeyUp(KeyCode.W))
-			emmisions.enabled = false;
+			emmisions.enabled = false;	
 	}
 
 	new protected void FixedUpdate() {
@@ -47,6 +49,10 @@ public class Ship : PhysicsObject {
 			rb.AddForce(transform.right * force - (rb.velocity / force*4), ForceMode.Force);
 		}
 		EnforceBoundaries();
+		if (health < maxHealth) {
+			health = health + 0.1f;
+			UpdateHealthBar();
+		}
 	}
 
 	void fire() {
@@ -59,16 +65,17 @@ public class Ship : PhysicsObject {
 	override protected void OnCollisionEnter(Collision col) {
 		base.OnCollisionEnter(col);
 		UpdateHealthBar();
+		
 	}
 
 	override public void takeDamage(float damage) {
 		health -= damage;
 		if (health <= 0)
-			Debug.Log("SHIP DEAD");
-	}
+			Application.Quit();
+		}
 
 	void UpdateHealthBar() {
-		healthBar.size = health / maxHealth;
+		healthBar.size = (health / maxHealth);
 	}
 
 	void setRotation() {
@@ -84,12 +91,12 @@ public class Ship : PhysicsObject {
 
 	override protected void EnforceBoundaries() {
 		if (transform.position.x < Map.X)
-			transform.position = new Vector3(-90f, transform.position.y, transform.position.z);
+			transform.position = new Vector3(Map.X, transform.position.y, transform.position.z);
 		if (transform.position.x > Map.X + Map.W)
-			transform.position = new Vector3(90f, transform.position.y, transform.position.z);
+			transform.position = new Vector3(Map.X+Map.W, transform.position.y, transform.position.z);
 		if (transform.position.y < Map.Y)
-			transform.position = new Vector3(transform.position.x, -38f, transform.position.z);
+			transform.position = new Vector3(transform.position.x, Map.Y, transform.position.z);
 		if (transform.position.y > Map.Y + Map.H)
-			transform.position = new Vector3(transform.position.x, 38f, transform.position.z);
+			transform.position = new Vector3(transform.position.x, Map.Y+Map.H, transform.position.z);
 	}
 }
