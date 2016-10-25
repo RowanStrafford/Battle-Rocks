@@ -39,8 +39,7 @@ public class Ship : PhysicsObject {
 	new protected void FixedUpdate() {
 		base.FixedUpdate();
 		if (Input.GetKey(KeyCode.W)) {
-			rb.AddForce(transform.right * force - (rb.velocity / 10), ForceMode.Force);
-			//Debug.Log(transform.right + " " + force + " - " + (rb.velocity / 10));
+			rb.AddForce(transform.right * force - (rb.velocity / force*4), ForceMode.Force);
 		}
 		EnforceBoundaries();
 	}

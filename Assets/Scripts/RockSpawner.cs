@@ -60,23 +60,23 @@ public class RockSpawner : MonoBehaviour {
 			float rotation = 0f;
 			switch (side) {
 				case 1://LEFT
-					spawnPos.Set(Random.Range(Map.X - 50 - 10, Map.X - 10), Random.Range(Map.Y + Map.H, Map.Y), 0);
+					spawnPos.Set(Random.Range(Map.X - 30 - 10, Map.X - 10), Random.Range(Map.Y + Map.H, Map.Y), 0);
 					rotation = Random.Range(0f - 20f, 0f + 20f);
 					break;
 				case 2://BOT
-					spawnPos.Set(Random.Range(Map.X, Map.X + Map.W), Random.Range(Map.Y - 50 - 10, Map.Y - 10), 0);
+					spawnPos.Set(Random.Range(Map.X, Map.X + Map.W), Random.Range(Map.Y - 30 - 10, Map.Y - 10), 0);
 					rotation = Random.Range(90f - 20f, 90f + 20f);
 					break;
 				case 3://RIGHT
-					spawnPos.Set(Random.Range(Map.X + Map.W + 10, Map.X + Map.W + 50 + 10), Random.Range(Map.Y, Map.Y + Map.H), 0);
+					spawnPos.Set(Random.Range(Map.X + Map.W + 10, Map.X + Map.W + 30 + 10), Random.Range(Map.Y, Map.Y + Map.H), 0);
 					rotation = Random.Range(180f - 20f, 180f + 20f);
 					break;
 				case 4://TOP
-					spawnPos.Set(Random.Range(Map.X, Map.X + Map.W), Random.Range(Map.Y + Map.H + 10, Map.Y + Map.H + 50 + 10), 0);
+					spawnPos.Set(Random.Range(Map.X, Map.X + Map.W), Random.Range(Map.Y + Map.H + 10, Map.Y + Map.H + 30 + 10), 0);
 					rotation = Random.Range(270f - 20f, 270f + 20f);
 					break;
 			}
-			createRock(spawnPos, Random.Range(1, 5), Random.Range(2, 5), rotation);
+			createRock(spawnPos, Random.Range(3, 6), Random.Range(2, 4), rotation);
 		}
 	}
 
