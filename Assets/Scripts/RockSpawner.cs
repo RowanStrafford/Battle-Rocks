@@ -39,6 +39,7 @@ public class RockSpawner : MonoBehaviour {
 
 		//Size
 		rock.transform.localScale = new Vector3(Random.Range(0.2f * size, 1f * size), Random.Range(0.2f * size, 1f * size), Random.Range(0.2f * size, 1f * size));
+		if (Random.Range(0, 10f) > 9.99)
 			rock.transform.localScale = rock.transform.localScale * 5;
 
 		//Direction
