@@ -13,7 +13,6 @@ public abstract class PhysicsObject : MonoBehaviour {
 
 	// Use this for initialization
 	virtual protected void Start() {
-		Debug.Log("base");
 		rb = GetComponent<Rigidbody>();
 		rb.SetDensity(density);
 		maxHealth = rb.mass* healthMult;
@@ -58,6 +57,6 @@ public abstract class PhysicsObject : MonoBehaviour {
 
 	virtual protected void EnforceBoundaries() {
 		if (transform.position.x < Map.X || transform.position.x > Map.X + Map.W || transform.position.y < Map.Y || transform.position.y > Map.Y + Map.H)
-			Destroy(gameObject, 5f);
+			Destroy(gameObject, 1f);
 	}
 }

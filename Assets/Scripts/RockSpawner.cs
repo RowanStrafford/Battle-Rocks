@@ -15,7 +15,8 @@ public class RockSpawner : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        createInitialRocks();
+		Map.rocks = rocks;
+		createInitialRocks();
 	}
 
 	// Update is called once per frame

@@ -16,7 +16,6 @@ public class Ship : PhysicsObject {
     ParticleSystem.EmissionModule emmisions;
 
 	new protected void Start () {
-		Debug.Log("new");
 		base.Start();
 		UpdateHealthBar();
 
@@ -35,7 +34,6 @@ public class Ship : PhysicsObject {
 			emmisions.enabled = true;
         if (Input.GetKeyUp(KeyCode.W))
 			emmisions.enabled = false;
-		
 	}
 
 	new protected void FixedUpdate() {
