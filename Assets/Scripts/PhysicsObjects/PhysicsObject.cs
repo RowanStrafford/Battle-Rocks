@@ -25,6 +25,10 @@ public abstract class PhysicsObject : MonoBehaviour {
 	}
 
 	virtual protected void FixedUpdate() {
+		Vector3 pos = transform.position;
+		pos.z = 0;
+		transform.position = pos;
+		//sometimes vector forward pos is off center, fix later
 		//Debug.Log(rb.velocity.magnitude);
 		if (rb.velocity.magnitude > maxVel)
 			rb.velocity = rb.velocity.normalized * maxVel;
@@ -32,9 +36,9 @@ public abstract class PhysicsObject : MonoBehaviour {
 
 	virtual protected void OnCollisionEnter(Collision col) {
 		PhysicsObject physicsObject = col.gameObject.GetComponent<PhysicsObject>();
-		float collisionForce = col.relativeVelocity.magnitude * rb.mass * dmgMult;
+		float collisionForce = col.relativeVelocity.magnitude * rb.mass;
 
-		physicsObject.takeDamage(collisionForce);
+		physicsObject.takeDamage(collisionForce*dmgMult);
 	}
 
 	virtual public void takeDamage(float damage) {
