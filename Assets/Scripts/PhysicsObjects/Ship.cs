@@ -15,7 +15,11 @@ public class Ship : PhysicsObject {
     private ParticleSystem particle;
     ParticleSystem.EmissionModule emmisions;
 
+    private AudioSource audio;
+    public AudioClip laserShot;
+
 	override protected void Start () {
+        audio = GetComponent<AudioSource>();
 		base.Start();
 		UpdateHealthBar();
 
@@ -50,6 +54,7 @@ public class Ship : PhysicsObject {
 		GameObject bullet = Instantiate(beam, beamSpawnPos.transform.position, transform.rotation) as GameObject;
 		Rigidbody beamRb = bullet.GetComponent<Rigidbody>();
 		beamRb.velocity += rb.velocity;
+        audio.PlayOneShot(laserShot);
 	}
 
 	override protected void OnCollisionEnter(Collision col) {
