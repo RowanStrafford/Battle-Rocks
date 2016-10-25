@@ -5,6 +5,7 @@ public class Beam : PhysicsObject {
 
 	//Physics
 	public float vel = 20f;
+    public float velMultiplier = 1;
 	
 	//Class
 	public float lifeTime = 10f;
@@ -13,7 +14,7 @@ public class Beam : PhysicsObject {
 		base.Start();
 		maxVel = 40;
 		//Physics
-		rb.velocity += vel*transform.right;
+		rb.velocity += vel*transform.right * velMultiplier;
 		Destroy(gameObject, lifeTime);		
 	}
 

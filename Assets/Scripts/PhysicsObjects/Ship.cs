@@ -16,9 +16,14 @@ public class Ship : PhysicsObject {
     ParticleSystem.EmissionModule emmisions;
 
     private AudioSource audio;
-    public AudioClip laserShot;   
+    public AudioClip beamPowerOn;
+    public AudioClip laserShot;
 
-	new protected void Start() {
+
+    private float fireRateTimer = 0f;
+    public float maxBeamPower = 3f;
+
+    new protected void Start() {
         base.Start();
 		UpdateHealthBar();
 
@@ -32,9 +37,29 @@ public class Ship : PhysicsObject {
     // Update is called once per frame
     new protected void Update () {
 		base.Update();
-		setRotation();
-		if (Input.GetButtonDown("Fire1"))//why does this need to be in update
-			fire();
+		setRotation();		
+
+        if(Input.GetButton("Fire1"))
+        {
+            if(audio.isPlaying == false) audio.PlayOneShot(beamPowerOn);            
+            
+            fireRateTimer += Time.deltaTime;
+
+            if (fireRateTimer > maxBeamPower) fire(fireRateTimer);
+            
+        }
+
+        if(Input.GetButtonUp("Fire1"))
+        {
+            audio.Stop();
+
+            if (fireRateTimer < 1f) fireRateTimer = 1f;
+
+            fire(fireRateTimer);
+
+        }
+
+
         if (Input.GetKeyDown(KeyCode.W))
 			emmisions.enabled = true;
         if (Input.GetKeyUp(KeyCode.W))
@@ -49,10 +74,15 @@ public class Ship : PhysicsObject {
 		EnforceBoundaries();
 	}
 
-	void fire() {
+	void fire(float speedMultiplier) {
 		GameObject bullet = Instantiate(beam, beamSpawnPos.transform.position, transform.rotation) as GameObject;
-		Rigidbody beamRb = bullet.GetComponent<Rigidbody>();
+        Rigidbody beamRb = bullet.GetComponent<Rigidbody>();
+        Beam beamScript = bullet.GetComponent<Beam>();
+
+        beamScript.velMultiplier = speedMultiplier;
 		beamRb.velocity += rb.velocity;
+
+        fireRateTimer = 0f;
         audio.PlayOneShot(laserShot);
 	}
 
