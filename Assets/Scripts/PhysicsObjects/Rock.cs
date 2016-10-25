@@ -28,13 +28,13 @@ public class Rock : PhysicsObject {
 
 		Destroy(gameObject);
 
-		if (rockSizeVect < 1.2f)
+		if (rockSizeVect < 1.5f)
 			return;
 
 		for (int i = 0; i < rockNum; i++) {
 			GameObject rock = Instantiate(Map.rocks[Random.Range(0, Map.rocks.Length)], pos, Quaternion.identity) as GameObject;
 			rock.transform.localScale = new Vector3(
-				Random.Range(0.6f * rockSizeVect / rockNum, 1f * rockSizeVect / rockNum), Random.Range(0.6f * rockSizeVect / rockNum, 1f * rockSizeVect / rockNum), Random.Range(0.6f * rockSizeVect / rockNum, 1f * rockSizeVect / rockNum));
+				Random.Range(0.4f * rockSizeVect / rockNum, 1.3f * rockSizeVect / rockNum), Random.Range(0.4f * rockSizeVect / rockNum, 1.3f * rockSizeVect / rockNum), Random.Range(0.4f * rockSizeVect / rockNum, 1.3f * rockSizeVect / rockNum));
 			Vector3 rockPos = new Vector3(Random.Range(-rockSizeVect / 2, rockSizeVect / 2), Random.Range(-rockSizeVect / 2, rockSizeVect / 2), 0);
 			rockPos.z = 0;
 			rock.transform.Translate(rockPos);
