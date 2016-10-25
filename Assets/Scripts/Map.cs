@@ -1,22 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Map : MonoBehaviour {
 
-    public static int X = -90;
-    public static int Y = -38;
-    public static int W = 180;
-    public static int H = 76;
+	public static int X = -90;
+	public static int Y = -37;
+	public static int W = 180;
+	public static int H = 74;
 
 	public static GameObject[] rocks;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }

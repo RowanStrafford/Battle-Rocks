@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class RockSpawner : MonoBehaviour {
 
@@ -12,11 +13,14 @@ public class RockSpawner : MonoBehaviour {
 	public int waveRockNum;
 
 	private float timer = 0;
-
+	public int score = 0;
+	public Text scoreText;
 	// Use this for initialization
 	void Start () {
 		Map.rocks = rocks;
 		createInitialRocks();
+
+		scoreText.text = "Score: " + score.ToString();
 	}
 
 	// Update is called once per frame
@@ -25,11 +29,13 @@ public class RockSpawner : MonoBehaviour {
 		if (timer > timeBetweenWaves) {
 			spawnWave(waveRockNum);
 			timer = 0;
+			score += 10;
+			scoreText.text = "Score: " + score.ToString();
 		}
 	}
 
-	GameObject createRock(Vector3 spawnPos, int size = 3, float speed = 2, float rotation = -1f) {
-		speed = Random.Range(1f * speed, 2.5f * speed);
+	GameObject createRock(Vector3 spawnPos, float size = 3, float speed = 2, float rotation = -1f) {
+		speed = Random.Range(0.8f * speed, 2.5f * speed);
 
 		if (rotation == -1f)
 			rotation = Random.Range(0, 360f);
@@ -39,7 +45,7 @@ public class RockSpawner : MonoBehaviour {
 
 		//Size
 		rock.transform.localScale = new Vector3(Random.Range(0.2f * size, 1f * size), Random.Range(0.2f * size, 1f * size), Random.Range(0.2f * size, 1f * size));
-		if (Random.Range(0, 10f) > 9.99)
+		if (Random.Range(0, 10f) > 9.98)
 			rock.transform.localScale = rock.transform.localScale * 5;
 
 		//Direction
@@ -99,7 +105,7 @@ public class RockSpawner : MonoBehaviour {
             
             for (int j = 0; j < avoids.Length; j++) {
                 dist = spawnPos - avoidPositions[j];
-                if (dist.magnitude < 5) {
+                if (dist.magnitude < 15) {
                     //Debug.Log("skipping because too close " + i);
                     canPlace = false;
                     break;
