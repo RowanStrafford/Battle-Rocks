@@ -17,7 +17,7 @@ public class Ship : PhysicsObject {
     private ParticleSystem particle;
     ParticleSystem.EmissionModule emmisions;
 
-    private AudioSource audio;
+    private AudioSource shipAudio;
     public AudioClip beamPowerOn;
 
     //private AudioSource audio;
@@ -34,7 +34,7 @@ public class Ship : PhysicsObject {
         particle = thruster.GetComponent<ParticleSystem>();
         emmisions = particle.emission;
         emmisions.enabled = false;
-		audio = GetComponent<AudioSource>();
+		shipAudio = GetComponent<AudioSource>();
 	}
 
     // Update is called once per frame
@@ -44,7 +44,7 @@ public class Ship : PhysicsObject {
 
         if(Input.GetButton("Fire1"))
         {
-            if(audio.isPlaying == false) audio.PlayOneShot(beamPowerOn);            
+            if(shipAudio.isPlaying == false) shipAudio.PlayOneShot(beamPowerOn);            
             
             fireRateTimer += Time.deltaTime;
 
@@ -54,7 +54,7 @@ public class Ship : PhysicsObject {
 
         if(Input.GetButtonUp("Fire1"))
         {
-            audio.Stop();
+			shipAudio.Stop();
 
             if (fireRateTimer < 1f) fireRateTimer = 1f;
 
@@ -90,13 +90,12 @@ public class Ship : PhysicsObject {
 		beamRb.velocity += rb.velocity;
         
         fireRateTimer = 0f;
-        audio.PlayOneShot(laserShot);
+		shipAudio.PlayOneShot(laserShot);
 	}
 
 	override protected void OnCollisionEnter(Collision col) {
 		base.OnCollisionEnter(col);
 		UpdateHealthBar();
-		
 	}
 
 	override public void takeDamage(float damage) {

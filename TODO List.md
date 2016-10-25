@@ -21,6 +21,8 @@ Tier 2:
 	-Idle Big Rock
 	-Ship Thruster
 	-Shooting
+-Music
+	-Add Music
 
 Tier 3:
 -Spin projectiles in cool way 
