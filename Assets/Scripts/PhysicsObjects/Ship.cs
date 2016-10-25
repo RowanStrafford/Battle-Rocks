@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class Ship : PhysicsObject {
 
@@ -17,9 +19,6 @@ public class Ship : PhysicsObject {
 
     private AudioSource audio;
     public AudioClip laserShot;
-
-	
-
 
 	new protected void Start() {
         base.Start();
@@ -71,8 +70,8 @@ public class Ship : PhysicsObject {
 	override public void takeDamage(float damage) {
 		health -= damage;
 		if (health <= 0)
-			Application.Quit();
-		}
+			SceneManager.LoadScene(0);
+	}
 
 	void UpdateHealthBar() {
 		healthBar.size = (health / maxHealth);

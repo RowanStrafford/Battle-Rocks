@@ -10,6 +10,17 @@ Tier 2:
 -Add ship regen properly
 -Fix thrusters again
 -Clean Scene
+-Move Background with ship a little (depth thing)
+-Have pause pause the game
+-Add Icon
+-Pick Company Name
+-Pick Game name
+
+-Sounds
+	-Rock Collision
+	-Idle Big Rock
+	-Ship Thruster
+	-Shooting
 
 Tier 3:
 -Spin projectiles in cool way 
