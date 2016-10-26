@@ -40,33 +40,72 @@ public class Ship : PhysicsObject {
     // Update is called once per frame
     new protected void Update () {
 		base.Update();
-		setRotation();		
+		setRotation();
 
-        if(Input.GetButton("Fire1"))
-        {
-            if(shipAudio.isPlaying == false) shipAudio.PlayOneShot(beamPowerOn);            
-            
-            fireRateTimer += Time.deltaTime;
+		inputs();
+   	}
 
-            if (fireRateTimer > maxBeamPower) fire(fireRateTimer);
-            
-        }
+	void inputs() {
+		if (Input.GetButton("Fire1")) {
+			fireRateTimer += Time.deltaTime;
 
-        if(Input.GetButtonUp("Fire1"))
-        {
+			if (shipAudio.isPlaying == false)
+				shipAudio.PlayOneShot(beamPowerOn);
+
+			if (fireRateTimer > maxBeamPower)
+				fire(maxBeamPower, 2);
+		}
+
+		if (Input.GetButtonUp("Fire1")) {
 			shipAudio.Stop();
 
-            if (fireRateTimer < 1f) fireRateTimer = 1f;
+			if (fireRateTimer < 0.5f) {
+				fire(1, 0);
+			} else if (fireRateTimer < 1f) {
+				fire(1, 1);
+			} else {
+				fire(fireRateTimer);
+			}
+			fireRateTimer = 0;
+		}
 
-            fire(fireRateTimer);
-
-        }
-
-
-        if (Input.GetKeyDown(KeyCode.W))
+		if (Input.GetKeyDown(KeyCode.W))
 			emmisions.enabled = true;
-        if (Input.GetKeyUp(KeyCode.W))
-			emmisions.enabled = false;	
+		if (Input.GetKeyUp(KeyCode.W))
+			emmisions.enabled = false;
+	}
+
+	void fire(float speedMultiplier = 1f, int power = 1) {
+		GameObject proj = Instantiate(beam, beamSpawnPos.transform.position, transform.rotation) as GameObject;
+		Rigidbody beamRb = proj.GetComponent<Rigidbody>();
+		beamRb.velocity += rb.velocity;
+		
+		Beam beamScript = proj.GetComponent<Beam>();
+
+		beamScript.velMult = speedMultiplier;
+		beamScript.modVel = true;
+
+		switch (power) {
+			case 0:
+				beamScript.densMult = 0.75f;
+				beamRb.transform.localScale = beamRb.transform.localScale * 0.6f;
+				break;
+			case 1:
+				beamScript.densMult = 1f;
+				//beamRb.transform.localScale = beamRb.transform.localScale * 1f;
+				break;
+			case 2:
+				beamScript.densMult = 1.25f;
+				beamRb.transform.localScale = beamRb.transform.localScale * 1.5f;
+				break;
+			default:
+				beamScript.densMult = 0.05f;
+				break;
+		}
+		beamScript.modDens = true;
+
+		fireRateTimer = 0;
+		shipAudio.PlayOneShot(laserShot);
 	}
 
 	new protected void FixedUpdate() {
@@ -80,19 +119,7 @@ public class Ship : PhysicsObject {
 			UpdateHealthBar();
 		}
 	}
-
-	void fire(float speedMultiplier) {
-		GameObject bullet = Instantiate(beam, beamSpawnPos.transform.position, transform.rotation) as GameObject;
-        Rigidbody beamRb = bullet.GetComponent<Rigidbody>();
-        Beam beamScript = bullet.GetComponent<Beam>();
-
-        beamScript.velMultiplier = speedMultiplier;
-		beamRb.velocity += rb.velocity;
-        
-        fireRateTimer = 0f;
-		shipAudio.PlayOneShot(laserShot);
-	}
-
+	
 	override protected void OnCollisionEnter(Collision col) {
 		base.OnCollisionEnter(col);
 		UpdateHealthBar();

@@ -7,14 +7,24 @@ public abstract class PhysicsObject : MonoBehaviour {
 	protected float maxHealth;
 	protected float health;
 	public float healthMult;
-	public float density;
+
 	public float dmgMult = 1;
+
 	public float maxVel = 20;
+
+	//Physics fun
+	public float dens = 1;
+
+	public float densMult = 1;
+	public bool modDens = false;
+
+	public float velMult = 1;
+	public bool modVel = false;
 
 	// Use this for initialization
 	virtual protected void Start() {
 		rb = GetComponent<Rigidbody>();
-		rb.SetDensity(density);
+		rb.SetDensity(dens);
 		maxHealth = rb.mass* healthMult;
 		health = maxHealth;
 	}
@@ -25,13 +35,33 @@ public abstract class PhysicsObject : MonoBehaviour {
 	}
 
 	virtual protected void FixedUpdate() {
+		setPos();
+		updatePhysVars();
+		
+		//Cap Velocity
+		if (rb.velocity.magnitude > maxVel)
+			rb.velocity = rb.velocity.normalized * maxVel;
+	}
+
+	private void setPos() {
+		//sometimes vector forward pos is off center, fix later
 		Vector3 pos = transform.position;
 		pos.z = 0;
 		transform.position = pos;
-		//sometimes vector forward pos is off center, fix later
-		//Debug.Log(rb.velocity.magnitude);
-		if (rb.velocity.magnitude > maxVel)
-			rb.velocity = rb.velocity.normalized * maxVel;
+	}
+
+	private void updatePhysVars() {
+		if (modVel) {
+			rb.velocity *= velMult;
+			modVel = false;
+		}
+		if (modDens) {
+			dens *= densMult;
+			rb.SetDensity(dens);
+			modDens = false;
+			maxHealth = rb.mass * healthMult;
+			ResetHealth();
+		}
 	}
 
 	virtual protected void OnCollisionEnter(Collision col) {
