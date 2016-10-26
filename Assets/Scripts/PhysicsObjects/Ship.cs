@@ -3,7 +3,6 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-
 public class Ship : PhysicsObject {
 
 	public float force;
@@ -22,7 +21,6 @@ public class Ship : PhysicsObject {
 
     //private AudioSource audio;
     public AudioClip laserShot;
-
 
     private float fireRateTimer = 0f;
     public float maxBeamPower = 3f;
@@ -144,6 +142,9 @@ public class Ship : PhysicsObject {
 
 		float playerRotationAngle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
 		transform.rotation = Quaternion.Euler(new Vector3(0, 0, playerRotationAngle));
+		Vector3 rot = transform.rotation.eulerAngles;
+		rot = new Vector3(rot.x+180, rot.y, rot.z);
+		transform.rotation = Quaternion.Euler(-rot);
 	}
 
 	override protected void EnforceBoundaries() {
