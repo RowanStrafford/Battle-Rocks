@@ -145,6 +145,12 @@ public class Ship : PhysicsObject {
 		//Vector3 rot = transform.rotation.eulerAngles;
 		//rot = new Vector3(rot.x+180, rot.y, rot.z);
 		//transform.rotation = Quaternion.Euler(-rot);
+
+
+		//ROTATE SHIP WHILE TURNING //TODO
+		//transform.Rotate(30,0,30);
+
+		transform.Rotate(-30, 0, -30);
 	}
 
 	override protected void EnforceBoundaries() {

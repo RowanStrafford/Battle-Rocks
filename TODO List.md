@@ -15,7 +15,7 @@ Tier 2:
 -Add Icon
 -Pick Company Name
 -Pick Game name
-
+-Rotate ship when going round corners
 -Sounds
 	-Rock Collision
 	-Idle Big Rock
