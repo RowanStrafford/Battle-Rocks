@@ -141,10 +141,10 @@ public class Ship : PhysicsObject {
 		mousePos.y = mousePos.y - objectPos.y;
 
 		float playerRotationAngle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
-		transform.rotation = Quaternion.Euler(new Vector3(0, 0, playerRotationAngle));
-		Vector3 rot = transform.rotation.eulerAngles;
-		rot = new Vector3(rot.x+180, rot.y, rot.z);
-		transform.rotation = Quaternion.Euler(-rot);
+		transform.rotation = Quaternion.Euler(new Vector3(180, 0, -playerRotationAngle));
+		//Vector3 rot = transform.rotation.eulerAngles;
+		//rot = new Vector3(rot.x+180, rot.y, rot.z);
+		//transform.rotation = Quaternion.Euler(-rot);
 	}
 
 	override protected void EnforceBoundaries() {
