@@ -23,6 +23,10 @@ Tier 2:
 	-Shooting
 -Music
 	-Add Music
+-Implement death properly
+-Add particles to collisions
+-change high power beam color
+
 
 Tier 3:
 -Spin projectiles in cool way 
@@ -30,3 +34,4 @@ Tier 3:
 -Rock Splitting should use the axe scales (no fat rock from flat rock)
 -Add Physics to
 	-Particles?
+-AI
