@@ -21,6 +21,8 @@ public abstract class PhysicsObject : MonoBehaviour {
 	public float velMult = 1;
 	public bool modVel = false;
 
+	public int team = 0;
+
 	// Use this for initialization
 	virtual protected void Start() {
 		rb = GetComponent<Rigidbody>();
@@ -66,6 +68,9 @@ public abstract class PhysicsObject : MonoBehaviour {
 
 	virtual protected void OnCollisionEnter(Collision col) {
 		PhysicsObject physicsObject = col.gameObject.GetComponent<PhysicsObject>();
+		if (team == physicsObject.team&&team==1)
+			return;
+
 		float collisionForce = col.relativeVelocity.magnitude * rb.mass;
 
 		physicsObject.takeDamage(collisionForce*dmgMult);

@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class Ship : PhysicsObject {
+public class Companion : PhysicsObject {
 
 	public float force;
 
@@ -11,28 +11,22 @@ public class Ship : PhysicsObject {
 	public GameObject beamSpawnPos;
 
 	//Thruster
-    public Scrollbar healthBar;
     public GameObject thruster;
     private ParticleSystem particle;
     ParticleSystem.EmissionModule emmisions;
 
-    private AudioSource shipAudio;
-    public AudioClip beamPowerOn;
+	//Audio
+	private AudioSource companionAudio;
+	public AudioClip dead;
 
-    //private AudioSource audio;
-    public AudioClip laserShot;
-
-    private float fireRateTimer = 0f;
-    public float maxBeamPower = 3f;
-
-    new protected void Start() {
+	new protected void Start() {
         base.Start();
-		UpdateHealthBar();
 
         particle = thruster.GetComponent<ParticleSystem>();
         emmisions = particle.emission;
         emmisions.enabled = false;
-		shipAudio = GetComponent<AudioSource>();
+
+		companionAudio = GetComponent<AudioSource>();
 	}
 
     // Update is called once per frame
@@ -45,31 +39,11 @@ public class Ship : PhysicsObject {
 
 	void inputs() {
 		if (Input.GetButton("Fire1")) {
-			fireRateTimer += Time.deltaTime;
 
-			if (shipAudio.isPlaying == false)
-				shipAudio.PlayOneShot(beamPowerOn);
-
-			if (fireRateTimer > maxBeamPower)
-				fire(maxBeamPower, 2);
 		}
 
 		if (Input.GetButtonUp("Fire1")) {
-			shipAudio.Stop();
-
-			if (fireRateTimer < 0.5f) {
-				fire(1, 0);
-			} else if (fireRateTimer < 1f) {
-				fire(1, 1);
-			} else {
-				fire(fireRateTimer);
-			}
-			fireRateTimer = 0;
-		}
-
-		if (dead) {
-			emmisions.enabled = true;
-			return;
+			fire(1, 1);
 		}
 
 		if (Input.GetKeyDown(KeyCode.W))
@@ -107,51 +81,29 @@ public class Ship : PhysicsObject {
 				break;
 		}
 		beamScript.modDens = true;
+	}
 
-		fireRateTimer = 0;
-		shipAudio.PlayOneShot(laserShot);
+	override public void takeDamage(float damage) {
+		health -= damage;
+		if (health <= 0) {
+			companionAudio.PlayOneShot(dead);
+			Destroy(gameObject, 0.3f);
+		}
+
 	}
 
 	new protected void FixedUpdate() {
 		base.FixedUpdate();
-		if (dead) {
-			rb.AddForce(transform.right * force - (rb.velocity * rb.velocity.magnitude / maxVel*0.5f), ForceMode.Force);
-			return;
-		}
 		if (Input.GetKey(KeyCode.W)) {
 			rb.AddForce(transform.right * force - (rb.velocity * rb.velocity.magnitude / maxVel), ForceMode.Force);
 		}
 		EnforceBoundaries();
 		if (health < maxHealth) {
 			health = health + 0.1f;
-			UpdateHealthBar();
 		}
 	}
 	
-	override protected void OnCollisionEnter(Collision col) {
-		base.OnCollisionEnter(col);
-		UpdateHealthBar();
-	}
-	bool dead = false;
-	override public void takeDamage(float damage) {
-		health -= damage;
-		if (health <= 0) {
-			Invoke("LoadNewScene", 5);
-			dead = true;
-		}
-	}
-
-	void LoadNewScene() {
-		SceneManager.LoadScene(0);
-	}
-	void UpdateHealthBar() {
-		healthBar.size = (health / maxHealth);
-	}
-
 	void setRotation() {
-		if (dead == true)
-			return;
-
 		Vector3 mousePos = Input.mousePosition;
 		Vector3 objectPos = Camera.main.WorldToScreenPoint(transform.position);
 
