@@ -52,7 +52,7 @@ public class RockSpawner : MonoBehaviour {
 		rock.transform.eulerAngles = new Vector3(0, 0, rotation);
 
 		//Forces
-		rb.AddTorque(new Vector3(Random.Range(1f, 100f + wave), Random.Range(1f, 100f + wave), Random.Range(1f, 100f + wave)));
+		rb.AddTorque(new Vector3(Random.Range(1f, 100f + wave*2), Random.Range(1f, 100f + wave*2), Random.Range(1f, 100f + wave)));
 		rb.AddForce(rock.transform.right * speed, ForceMode.VelocityChange);
 		
 
@@ -82,9 +82,9 @@ public class RockSpawner : MonoBehaviour {
 					rotation = Random.Range(270f - 20f, 270f + 20f);
 					break;
 			}
-			createRock(spawnPos, Random.Range(3, 4+0.4f*wave), Random.Range(0.5f, 1.5f+0.2f * wave), rotation);
+			createRock(spawnPos, Random.Range(3, 4+0.35f*wave), Random.Range(0.5f, 1.5f+0.42f * wave), rotation);
 		}
-		wave+=1.2f;
+		wave+=1.35f;
 	}
 
 	void createInitialRocks() {

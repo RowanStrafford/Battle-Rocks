@@ -17,8 +17,8 @@ public class Rock : PhysicsObject {
 	}
 
 	override protected void Die(float damage) {
-		if (damage > 3*maxHealth)
-			damage = 3*maxHealth;
+		if (damage > 4*maxHealth)
+			damage = 4*maxHealth;
 
 		float rockSize = (transform.localScale.x + transform.localScale.y + transform.localScale.z) / 3;
 
@@ -41,7 +41,7 @@ public class Rock : PhysicsObject {
 			rock.transform.Translate(rockPos);
 			Rigidbody rockRb = rock.GetComponent<Rigidbody>();
 			rockRb.velocity += rb.velocity;
-			rockRb.AddExplosionForce(Mathf.Sqrt(damage*2+1), pos, rockSize/1.5f, 0, ForceMode.Impulse);
+			rockRb.AddExplosionForce(damage, pos, rockSize/1.5f, 0, ForceMode.Impulse);
 		}
 	}
 
