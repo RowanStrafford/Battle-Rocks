@@ -30,8 +30,8 @@ public class CemeraBehaviour : MonoBehaviour {
         transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
         
         // Mouse wheel zooming
-        if (Input.GetAxis("Mouse ScrollWheel") > 0) cam.orthographicSize = Mathf.Max(Camera.main.orthographicSize - 1, minZoom);
-        if (Input.GetAxis("Mouse ScrollWheel") < 0) cam.orthographicSize = Mathf.Min(Camera.main.orthographicSize + 1, maxZoom);
+        if (Input.GetAxis("Mouse ScrollWheel") > 0) cam.orthographicSize = Mathf.Max(Camera.main.orthographicSize -0.5f, minZoom);
+        if (Input.GetAxis("Mouse ScrollWheel") < 0) cam.orthographicSize = Mathf.Min(Camera.main.orthographicSize + 0.5f, maxZoom);
     }
 
     

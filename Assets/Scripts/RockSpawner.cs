@@ -58,9 +58,22 @@ public class RockSpawner : MonoBehaviour {
 		return rock;
 	}
 	float wave = 1;
+	int sideNum = 0;
 	void spawnWave(int num) {
+		int side = Random.Range(1, 5);
+
 		for (int i = 0; i < num; i++) {
-			int side = Random.Range(1, 5);
+
+			if (sideNum == 0)
+				side = Random.Range(1, 3);
+			if (sideNum == 1)
+				side = Random.Range(2, 4);
+			if (sideNum == 2)
+				side = Random.Range(3, 5);
+			if (sideNum == 3)
+				sideNum = 0;
+
+
 			Vector3 spawnPos = new Vector3(0, 0);
 			float rotation = 0f;
 			switch (side) {
@@ -83,7 +96,8 @@ public class RockSpawner : MonoBehaviour {
 			}
 			createRock(spawnPos, Random.Range(2, 4+0.35f*wave), Random.Range(0.4f, 1.3f+0.42f * wave), rotation);
 		}
-		wave+=1.35f;
+		sideNum++;
+		wave +=1.35f;
 	}
 
 	void createInitialRocks() {
@@ -121,7 +135,7 @@ public class RockSpawner : MonoBehaviour {
 					return;
 				}
             }
-			createRock(spawnPos, Random.Range(1, 5), 1);
+			createRock(spawnPos, Random.Range(1, 7), 1);
 			i++;
 		}
     }
