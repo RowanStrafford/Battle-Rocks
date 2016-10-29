@@ -46,13 +46,13 @@ public class RockSpawner : MonoBehaviour {
 		//Size
 		rock.transform.localScale = new Vector3(Random.Range(0.2f * size, 1f * size), Random.Range(0.2f * size, 1f * size), Random.Range(0.2f * size, 1f * size));
 		if (Random.Range(0, 10f) > 9.98)
-			rock.transform.localScale = rock.transform.localScale * 5;
+			rock.transform.localScale = rock.transform.localScale * 3;
 
 		//Direction
 		rock.transform.eulerAngles = new Vector3(0, 0, rotation);
 
 		//Forces
-		rb.AddTorque(new Vector3(Random.Range(3f, 100f + wave), Random.Range(3f, 100f + wave), Random.Range(3f, 100f + wave)));
+		rb.AddTorque(new Vector3(Random.Range(1f, 100f + wave), Random.Range(1f, 100f + wave), Random.Range(1f, 100f + wave)));
 		rb.AddForce(rock.transform.right * speed, ForceMode.VelocityChange);
 		
 
@@ -82,9 +82,9 @@ public class RockSpawner : MonoBehaviour {
 					rotation = Random.Range(270f - 20f, 270f + 20f);
 					break;
 			}
-			createRock(spawnPos, Random.Range(3, 4+0.5f*wave), Random.Range(2, 3+0.5f * wave), rotation);
+			createRock(spawnPos, Random.Range(3, 4+0.4f*wave), Random.Range(0.5f, 1.5f+0.2f * wave), rotation);
 		}
-		wave+=0.6f;
+		wave+=1.2f;
 	}
 
 	void createInitialRocks() {
@@ -122,7 +122,7 @@ public class RockSpawner : MonoBehaviour {
 					return;
 				}
             }
-			createRock(spawnPos, Random.Range(1, 5));
+			createRock(spawnPos, Random.Range(1, 5), 1);
 			i++;
 		}
     }

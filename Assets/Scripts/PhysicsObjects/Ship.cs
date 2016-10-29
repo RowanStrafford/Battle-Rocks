@@ -99,8 +99,8 @@ public class Ship : PhysicsObject {
 				//beamRb.transform.localScale = beamRb.transform.localScale * 1f;
 				break;
 			case 2:
-				beamScript.densMult = 1.25f;
-				beamRb.transform.localScale = beamRb.transform.localScale * 1.5f;
+				beamScript.densMult = 1.5f;
+				beamRb.transform.localScale = beamRb.transform.localScale * 1.7f;
 				break;
 			default:
 				beamScript.densMult = 0.05f;
@@ -115,11 +115,11 @@ public class Ship : PhysicsObject {
 	new protected void FixedUpdate() {
 		base.FixedUpdate();
 		if (dead) {
-			rb.AddForce(transform.right * force - (rb.velocity * rb.velocity.magnitude / maxVel*0.5f), ForceMode.Force);
+			rb.AddForce(transform.right * force - (rb.velocity * rb.velocity.magnitude / maxVel*2), ForceMode.Force);
 			return;
 		}
 		if (Input.GetKey(KeyCode.W)) {
-			rb.AddForce(transform.right * force - (rb.velocity * rb.velocity.magnitude / maxVel), ForceMode.Force);
+			rb.AddForce(transform.right * force - (rb.velocity * (rb.velocity.magnitude-1) / maxVel), ForceMode.Force);
 		}
 		EnforceBoundaries();
 		if (health < maxHealth) {

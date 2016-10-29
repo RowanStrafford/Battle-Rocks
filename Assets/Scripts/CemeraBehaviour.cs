@@ -25,7 +25,7 @@ public class CemeraBehaviour : MonoBehaviour {
         if (transform.position.y < Map.Y + heightHalf) transform.position = new Vector3(transform.position.x, Map.Y + heightHalf, transform.position.z);
         if (transform.position.y > Map.Y+Map.H - heightHalf) transform.position = new Vector3(transform.position.x, Map.Y + Map.H - heightHalf, transform.position.z);
 
-        Vector3 targetPosition = new Vector3(player.transform.position.x, player.transform.position.y, -15);
+        Vector3 targetPosition = new Vector3(player.transform.position.x, player.transform.position.y, -30);
 
         transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
         

@@ -23,11 +23,14 @@ public abstract class PhysicsObject : MonoBehaviour {
 
 	public int team = 0;
 
+	protected int immune = 0;
+
+
 	// Use this for initialization
 	virtual protected void Start() {
 		rb = GetComponent<Rigidbody>();
 		rb.SetDensity(dens);
-		maxHealth = rb.mass* healthMult;
+		maxHealth = Mathf.Sqrt(rb.mass) * healthMult;
 		health = maxHealth;
 	}
 
@@ -43,6 +46,8 @@ public abstract class PhysicsObject : MonoBehaviour {
 		//Cap Velocity
 		if (rb.velocity.magnitude > maxVel)
 			rb.velocity = rb.velocity.normalized * maxVel;
+
+		immune++;
 	}
 
 	private void setPos() {
@@ -67,13 +72,20 @@ public abstract class PhysicsObject : MonoBehaviour {
 	}
 
 	virtual protected void OnCollisionEnter(Collision col) {
+		if (immune < 0)
+			return;
+
 		PhysicsObject physicsObject = col.gameObject.GetComponent<PhysicsObject>();
+
+		if (physicsObject.immune < 0)
+			return;
+
 		if (team == physicsObject.team&&team==1)
 			return;
 
-		float collisionForce = col.relativeVelocity.magnitude * rb.mass;
+		float collisionForce = (col.relativeVelocity.magnitude+ col.relativeVelocity.magnitude) * maxHealth;
 
-		physicsObject.takeDamage(collisionForce*dmgMult);
+		physicsObject.takeDamage(Mathf.Sqrt(collisionForce/3)*dmgMult);
 	}
 
 	virtual public void takeDamage(float damage) {
