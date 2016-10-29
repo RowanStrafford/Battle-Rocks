@@ -46,7 +46,7 @@ public class Rock : PhysicsObject {
 	}
 
 	override protected void EnforceBoundaries() {
-		if (transform.position.x < Map.X - 30|| transform.position.x > Map.X + Map.W + 30 || transform.position.y < Map.Y - 30 || transform.position.y > Map.Y + Map.H + 30) {
+		if (transform.position.x < Map.X - 60|| transform.position.x > Map.X + Map.W + 60 || transform.position.y < Map.Y - 60 || transform.position.y > Map.Y + Map.H + 60) {
 			Destroy(gameObject);
 		}
 	}
