@@ -33,6 +33,7 @@ public class Ship : PhysicsObject {
         emmisions = particle.emission;
         emmisions.enabled = false;
 		shipAudio = GetComponent<AudioSource>();
+		
 	}
 
     // Update is called once per frame
@@ -72,9 +73,9 @@ public class Ship : PhysicsObject {
 			return;
 		}
 
-		if (Input.GetKeyDown(KeyCode.W))
+		if (Input.GetButtonDown("Vertical"))
 			emmisions.enabled = true;
-		if (Input.GetKeyUp(KeyCode.W))
+		if (Input.GetButtonUp("Vertical"))
 			emmisions.enabled = false;
 	}
 
@@ -118,7 +119,7 @@ public class Ship : PhysicsObject {
 			rb.AddForce(transform.right * force - (rb.velocity * rb.velocity.magnitude / maxVel*2), ForceMode.Force);
 			return;
 		}
-		if (Input.GetKey(KeyCode.W)) {
+		if (Input.GetButton("Vertical")) {
 			rb.AddForce(transform.right * force - (rb.velocity * (rb.velocity.magnitude-1) / maxVel), ForceMode.Force);
 		}
 		EnforceBoundaries();

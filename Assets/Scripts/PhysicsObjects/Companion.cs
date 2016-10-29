@@ -46,9 +46,9 @@ public class Companion : PhysicsObject {
 			fire(1, 1);
 		}
 
-		if (Input.GetKeyDown(KeyCode.W))
+		if (Input.GetButtonDown("Vertical"))
 			emmisions.enabled = true;
-		if (Input.GetKeyUp(KeyCode.W))
+		if (Input.GetButtonUp("Vertical"))
 			emmisions.enabled = false;
 	}
 
@@ -94,7 +94,7 @@ public class Companion : PhysicsObject {
 
 	new protected void FixedUpdate() {
 		base.FixedUpdate();
-		if (Input.GetKey(KeyCode.W)) {
+		if (Input.GetButton("Vertical")) {
 			rb.AddForce(transform.right * force - (rb.velocity * rb.velocity.magnitude / maxVel), ForceMode.Force);
 		}
 		EnforceBoundaries();
