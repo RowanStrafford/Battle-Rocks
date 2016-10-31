@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class Ship : PhysicsObject {
 
 	public float force;
+	public float handling;
 
 	public GameObject beam;
 	public GameObject beamSpawnPos;
@@ -116,11 +117,27 @@ public class Ship : PhysicsObject {
 	new protected void FixedUpdate() {
 		base.FixedUpdate();
 		if (dead) {
-			rb.AddForce(transform.right * force - (rb.velocity * rb.velocity.magnitude / maxVel*2), ForceMode.Force);
+			//rb.AddForce(transform.right * force - (rb.velocity * rb.velocity.magnitude / maxVel*2), ForceMode.Force);
+			//rb.AddForce(transform.right * force - (rb.velocity * rb.velocity.magnitude *300), ForceMode.Force);
+			rb.AddForce(transform.right * force, ForceMode.Force);
 			return;
 		}
 		if (Input.GetButton("Vertical")) {
-			rb.AddForce(transform.right * force - (rb.velocity * (rb.velocity.magnitude-1) / maxVel), ForceMode.Force);
+			//rb.AddForce(force * transform.right - (rb.velocity.normalized * rb.velocity.magnitude), ForceMode.Force);//pretty cool
+			Vector3 newForce = (transform.right * force - rb.velocity / maxVel * 3 * force) * handling;
+
+			if ((newForce - transform.right).magnitude > -0.5f) {//always true
+				//if (transform.right.magnitude > 1) {
+					rb.AddForce(newForce, ForceMode.Force);
+				//} else {
+
+				//}
+			} else {
+				//rb.AddForce(transform.right * force * handling, ForceMode.Force);
+			}
+			//rb.AddForce(transform.right * force - (rb.velocity.normalized * (Mathf.Sqrt(rb.velocity.magnitude) + 0.5f)), ForceMode.Force);
+			//rb.AddForce(transform.right * force - (rb.velocity.normalized * (Mathf.Sqrt(rb.velocity.magnitude*20/maxVel))), ForceMode.Force);
+			Debug.Log(rb.velocity.magnitude);
 		}
 		EnforceBoundaries();
 		if (health < maxHealth) {

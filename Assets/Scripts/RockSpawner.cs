@@ -94,10 +94,10 @@ public class RockSpawner : MonoBehaviour {
 					rotation = Random.Range(270f - 20f, 270f + 20f);
 					break;
 			}
-			createRock(spawnPos, Random.Range(2, 4+0.35f*wave), Random.Range(0.4f, 1.3f+0.42f * wave), rotation);
+			createRock(spawnPos, Random.Range(2, 4 + 0.35f * wave), Random.Range(0.4f, 1.3f + 0.42f * wave), rotation);
 		}
 		sideNum++;
-		wave +=1.35f;
+		wave += 1.35f;
 	}
 
 	void createInitialRocks() {
@@ -105,14 +105,13 @@ public class RockSpawner : MonoBehaviour {
 
         Vector3[] avoidPositions = new Vector3[avoids.Length];
 
-        for (i=0;i<avoids.Length;i++)
+        for (i = 0; i < avoids.Length; i++)
 			avoidPositions[i] = avoids[i].transform.position;
 
         int emergencyEscape = 0;
 
-		i = 0;
 		while (i < initialRockNum) {
-            Vector3 spawnPos = new Vector3(Random.Range(Map.X, Map.X+Map.W), Random.Range(Map.Y, Map.Y + Map.H), 0);
+			Vector3 spawnPos = new Vector3(Random.Range(Map.X, Map.X + Map.W), Random.Range(Map.Y, Map.Y + Map.H), 0);
             Vector3 dist = new Vector3(0, 0);
 
             bool canPlace = false;
@@ -135,11 +134,8 @@ public class RockSpawner : MonoBehaviour {
 					return;
 				}
             }
-			createRock(spawnPos, Random.Range(1, 7), 1);
+			createRock(spawnPos, Random.Range(1, 9), Random.Range(0, 1.5f));
 			i++;
 		}
     }
-
-	
-
 }

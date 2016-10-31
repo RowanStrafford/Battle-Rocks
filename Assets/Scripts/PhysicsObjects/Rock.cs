@@ -5,7 +5,7 @@ public class Rock : PhysicsObject {
 
 	new protected void Start () {
 		base.Start();
-		immune = -10;
+		immune = -5;
 	}
 
 	new protected void Update() {
