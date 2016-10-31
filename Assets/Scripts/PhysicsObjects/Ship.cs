@@ -117,13 +117,10 @@ public class Ship : PhysicsObject {
 	new protected void FixedUpdate() {
 		base.FixedUpdate();
 		if (dead) {
-			//rb.AddForce(transform.right * force - (rb.velocity * rb.velocity.magnitude / maxVel*2), ForceMode.Force);
-			//rb.AddForce(transform.right * force - (rb.velocity * rb.velocity.magnitude *300), ForceMode.Force);
 			rb.AddForce(transform.right * force, ForceMode.Force);
 			return;
 		}
 		if (Input.GetButton("Vertical")) {
-			//rb.AddForce(force * transform.right - (rb.velocity.normalized * rb.velocity.magnitude), ForceMode.Force);//pretty cool
 			Vector3 newForce = (transform.right * force - rb.velocity / maxVel * 3 * force) * handling;
 
 			if ((newForce - transform.right).magnitude > -0.5f) {//always true
@@ -133,10 +130,8 @@ public class Ship : PhysicsObject {
 
 				//}
 			} else {
-				//rb.AddForce(transform.right * force * handling, ForceMode.Force);
+				rb.AddForce(transform.right * force * handling, ForceMode.Force);
 			}
-			//rb.AddForce(transform.right * force - (rb.velocity.normalized * (Mathf.Sqrt(rb.velocity.magnitude) + 0.5f)), ForceMode.Force);
-			//rb.AddForce(transform.right * force - (rb.velocity.normalized * (Mathf.Sqrt(rb.velocity.magnitude*20/maxVel))), ForceMode.Force);
 			Debug.Log(rb.velocity.magnitude);
 		}
 		EnforceBoundaries();
