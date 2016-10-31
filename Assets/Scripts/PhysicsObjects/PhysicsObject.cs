@@ -83,7 +83,7 @@ public abstract class PhysicsObject : MonoBehaviour {
 		if (team == physicsObject.team&&team==1)
 			return;
 
-		float collisionForce = (col.relativeVelocity.magnitude* col.relativeVelocity.magnitude) * maxHealth;
+		float collisionForce = (col.relativeVelocity.magnitude* col.relativeVelocity.magnitude/2) * maxHealth;
 
 		physicsObject.takeDamage(Mathf.Sqrt(collisionForce/4)*dmgMult);
 	}

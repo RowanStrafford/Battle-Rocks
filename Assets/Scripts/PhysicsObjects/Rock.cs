@@ -41,7 +41,7 @@ public class Rock : PhysicsObject {
 			rock.transform.Translate(rockPos);
 			Rigidbody rockRb = rock.GetComponent<Rigidbody>();
 			rockRb.velocity += rb.velocity;
-			rockRb.AddExplosionForce(Mathf.Sqrt(damage)*2, pos, rockSize/1.5f, 0, ForceMode.Impulse);
+			rockRb.AddExplosionForce(Mathf.Sqrt(damage*3), pos, rockSize/1.5f, 0, ForceMode.Impulse);
 		}
 	}
 
