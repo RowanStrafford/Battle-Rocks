@@ -113,7 +113,6 @@ public class RockSpawner : MonoBehaviour {
 		while (i < initialRockNum) {
 			Vector3 spawnPos = new Vector3(Random.Range(Map.X, Map.X + Map.W), Random.Range(Map.Y, Map.Y + Map.H), 0);
             Vector3 dist = new Vector3(0, 0);
-
             bool canPlace = false;
             
             for (int j = 0; j < avoids.Length; j++) {
@@ -134,7 +133,7 @@ public class RockSpawner : MonoBehaviour {
 					return;
 				}
             }
-			createRock(spawnPos, Random.Range(1, 9), Random.Range(0, 1.5f));
+			createRock(spawnPos, Random.Range(1, 14), Random.Range(0, 1.2f));
 			i++;
 		}
     }

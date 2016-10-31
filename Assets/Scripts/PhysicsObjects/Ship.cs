@@ -120,24 +120,27 @@ public class Ship : PhysicsObject {
 			rb.AddForce(transform.right * force, ForceMode.Force);
 			return;
 		}
-		if (Input.GetButton("Vertical")) {
-			Vector3 newForce = (transform.right * force - rb.velocity / maxVel * 3 * force) * handling;
-
-			if ((newForce - transform.right).magnitude > -0.5f) {//always true
-				//if (transform.right.magnitude > 1) {
-					rb.AddForce(newForce, ForceMode.Force);
-				//} else {
-
-				//}
-			} else {
-				rb.AddForce(transform.right * force * handling, ForceMode.Force);
-			}
-			Debug.Log(rb.velocity.magnitude);
-		}
+		
 		EnforceBoundaries();
 		if (health < maxHealth) {
 			health = health + 0.1f;
 			UpdateHealthBar();
+		}
+
+		Debug.Log(rb.velocity.magnitude);
+		if (Input.GetButton("Vertical")) {
+			Vector3 newForce = (transform.right * force - rb.velocity / maxVel * 3 * force) * handling;
+			//if ((newForce - transform.right).magnitude < 0) {
+				rb.AddForce(newForce, ForceMode.Force);
+			//	return;
+			//}else {
+
+//			}
+				//if (transform.right.magnitude > 1) {
+					//rb.AddForce(newForce, ForceMode.Force);
+				//} else {
+
+				//}
 		}
 	}
 	
