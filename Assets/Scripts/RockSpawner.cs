@@ -94,7 +94,7 @@ public class RockSpawner : MonoBehaviour {
 					rotation = Random.Range(270f - 20f, 270f + 20f);
 					break;
 			}
-			createRock(spawnPos, Random.Range(2, 4 + 0.35f * wave), Random.Range(0.4f, 1.3f + 0.42f * wave), rotation);
+			createRock(spawnPos, Random.Range(6, 7 + 0.35f * wave), Random.Range(0.4f, 1.3f + 0.30f * wave), rotation);
 		}
 		sideNum++;
 		wave += 1.35f;
@@ -133,7 +133,7 @@ public class RockSpawner : MonoBehaviour {
 					return;
 				}
             }
-			createRock(spawnPos, Random.Range(1, 14), Random.Range(0, 1.2f));
+			createRock(spawnPos, Random.Range(6, 14), Random.Range(0, 1.2f));
 			i++;
 		}
     }

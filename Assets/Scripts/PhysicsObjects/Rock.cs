@@ -22,7 +22,7 @@ public class Rock : PhysicsObject {
 
 		float rockSize = (transform.localScale.x + transform.localScale.y + transform.localScale.z) / 3;
 
-		int rockNum = Mathf.FloorToInt(2*damage/maxHealth)+Random.Range(2, 5);
+		int rockNum = Mathf.FloorToInt(2 * damage / maxHealth) + Random.Range(2, 5);
 		Vector3 pos = transform.position;
 		
 		Destroy(gameObject);
@@ -41,7 +41,7 @@ public class Rock : PhysicsObject {
 			rock.transform.Translate(rockPos);
 			Rigidbody rockRb = rock.GetComponent<Rigidbody>();
 			rockRb.velocity += rb.velocity;
-			rockRb.AddExplosionForce(damage, pos, rockSize/1.5f, 0, ForceMode.Impulse);
+			rockRb.AddExplosionForce(Mathf.Sqrt(damage)*2, pos, rockSize/1.5f, 0, ForceMode.Impulse);
 		}
 	}
 
