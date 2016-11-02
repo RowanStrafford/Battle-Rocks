@@ -28,6 +28,9 @@ public abstract class PhysicsObject : MonoBehaviour {
 
 	// Use this for initialization
 	virtual protected void Start() {
+		//enabled = false;
+		Time.timeScale = 0;
+		
 		rb = GetComponent<Rigidbody>();
 		rb.SetDensity(dens);
 		maxHealth = Mathf.Sqrt(rb.mass) * healthMult;

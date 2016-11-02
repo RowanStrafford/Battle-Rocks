@@ -34,7 +34,6 @@ public class Ship : PhysicsObject {
         emmisions = particle.emission;
         emmisions.enabled = false;
 		shipAudio = GetComponent<AudioSource>();
-		
 	}
 
     // Update is called once per frame
@@ -47,6 +46,7 @@ public class Ship : PhysicsObject {
 
 	void inputs() {
 		if (Input.GetButton("Fire1")) {
+			
 			fireRateTimer += Time.deltaTime;
 
 			if (shipAudio.isPlaying == false)

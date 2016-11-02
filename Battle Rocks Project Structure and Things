@@ -1,0 +1,95 @@
+Battle Rocks Project Structure and Things
+
+God Class
+	Everything is created here with Setters
+	Accessed with Getters
+	Entity Manager
+
+Handler
+	References
+
+Consider using a visitor system
+Consider ticking only
+
+
+----
+
+
+God Class persists through scene change
+Scene Classes
+
+
+----
+
+Problems
+-Cant change updaterate/physics updaterate for certain objects
+-cannot easily access specific/arrays of objects from other objects (handler or parent would fix)
+
+
+
+----
+
+Database - Matchmaker - Server - Clients
+
+Pros:
+-Can guarentee performance(ish)
+-No Cheating
+-
+
+Cons:
+-We have to have global servers??
+-We have to maintain these servers??
+-Can get overloaded by number of players
+-
+
+Database:
+-Leaderboards
+-Account Stats and Info
+-Player Stats and Info
+
+
+Matchmaker:
+-Gets info from database
+-Sets one of the available servers to the game 
+
+
+Server:
+-Can be created locally (for now)
+-Initial Game Properties
+	-Map Dimensions
+	-Number of players
+	-Players info
+	-Game Vars
+-Handles physics?
+-Syncs clients' games
+
+Client: 
+-Connects to a server
+-
+
+
+
+----
+
+Every physics object is handled by the client and the server
+calculations are identical, result SHOULD BE identical, if they are not ??????
+
+Every physics object is handled by client and server
+every time a player touches or interacts with another physics object, it is marked, everything the marked obj impacts is marked too
+every server tick, all marked objects are synced with server across all clients
+Every server tick, all player movements and actions are synced
+
+
+----
+
+Set maximums to physics vars
+-max size
+-max weight
+-max hp
+-max dmg
+
+
+Have splitscreen COS WHY NOT
+Have controller controls work
+
+

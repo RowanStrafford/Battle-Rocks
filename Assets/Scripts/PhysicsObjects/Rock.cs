@@ -6,6 +6,7 @@ public class Rock : PhysicsObject {
 	new protected void Start () {
 		base.Start();
 		immune = -5;
+		enabled = false;
 	}
 
 	new protected void Update() {
