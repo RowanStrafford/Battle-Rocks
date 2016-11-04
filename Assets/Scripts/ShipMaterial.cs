@@ -7,9 +7,11 @@ public class ShipMaterial : MonoBehaviour {
 
     private Texture textureUsed;
 
+    public ParticleSystem particles;
+
 	void Start ()
     {
-        rend = GetComponent<Renderer>();
+        rend = GetComponent<Renderer>();               
 	}
 
 	void Update ()
@@ -25,5 +27,16 @@ public class ShipMaterial : MonoBehaviour {
     public void SetTexture(Texture texture)
     {
         textureUsed = texture;
+        PlayFire();
+    }
+
+    public void ResetTexture()
+    {
+        rend.material.mainTexture = textureUsed;
+    }
+
+    void PlayFire()
+    {
+        particles.Play();
     }
 }
