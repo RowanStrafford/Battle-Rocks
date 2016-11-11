@@ -71,17 +71,6 @@ Client:
 
 ----
 
-Every physics object is handled by the client and the server
-calculations are identical, result SHOULD BE identical, if they are not ?????? Have a syncing system in place that checks small amounts of them over time as to not affect performance
-
-Every physics object is handled by client and server
-every time a player touches or interacts with another physics object, it is marked, everything the marked obj impacts is marked too
-every server tick, all marked objects are synced with server across all clients
-Every server tick, all player movements and actions are synced
-
-
-----
-
 Set maximums to physics vars
 -max size
 -max weight
