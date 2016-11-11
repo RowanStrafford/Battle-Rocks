@@ -1,17 +1,15 @@
-Game scene (needs name)
-God object inherits from monobehaviour 
-It takes all the game's parameters and creates the map, the initial spawn points all through a seed? Oooooh :]
-Seed contains map info + settings + all RNG (player cannot choose or see seed in challenge mode)
+Game scene (needs name: Play?)
 
-Handler (if necessary) is statics script that takes all the info anything can ever need:
-Reference to God object
-Reference to array list of physics objects
-Reference to player
-Etc
-Only used to get this info, never change it
-Is attached to God object?
-(Probably not static)
+God object inherits from monobehaviour
+	Each "Play Scene" takes into account: map size, shape, coords, rock spawning, diff... and stores that in a unique seed
+	Reusing this seed recreates an identical game
+	Player cannot choose or see seed in challenge mode?
 
-Physics object manager is script 
-That handles the rendering and ticking of every physics object in the scene as well as ordering etc
-Is attached to God object and is ticked that way
+Handler script is attached to god object
+	It takes all the info anything can ever need:
+		Reference to God object; Reference to array list of physics objects, Reference to player, Etc...
+	Only used to get this info, never change it
+	(Probably not static)
+
+Physics object manager is script attached to god object 
+	Handles the rendering and ticking of every physics object in the scene as well as ordering etc
