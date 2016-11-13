@@ -1,0 +1,20 @@
+Start(){
+	Seed();
+	LoadAssets();
+	InitialiseVars();
+	InitialiseArrays();
+	InitialiseTimers();
+}
+
+Seed(){
+	------Server
+	if(CheckSeed)
+		GenerateSeed();
+	DecodeSeed();
+	ErrorCheck();
+	SendSeedToClient();
+
+	------Client
+	DecodeSeed();
+	ErrorCheck();
+}
