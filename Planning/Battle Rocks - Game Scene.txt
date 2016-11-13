@@ -13,3 +13,7 @@ Handler script is attached to god object
 
 Physics object manager is script attached to god object 
 	Handles the rendering and ticking of every physics object in the scene as well as ordering etc
+
+Particle manager is script attached to god object
+	Handles the rendering and ticking of every particle object
+	Changing settings can change volume of particles
