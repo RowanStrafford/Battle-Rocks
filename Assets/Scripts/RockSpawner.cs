@@ -42,6 +42,7 @@ public class RockSpawner : MonoBehaviour {
 
 		GameObject rock = Instantiate(rocks[Random.Range(0, rocks.Length)], spawnPos, Quaternion.identity) as GameObject;
 		Rigidbody rb = rock.GetComponent<Rigidbody>();
+		rock.transform.parent = gameObject.transform;
 
 		//Size
 		rock.transform.localScale = new Vector3(Random.Range(0.2f * size, 1f * size), Random.Range(0.2f * size, 1f * size), Random.Range(0.2f * size, 1f * size));
