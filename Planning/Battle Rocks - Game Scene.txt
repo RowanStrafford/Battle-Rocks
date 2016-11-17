@@ -1,6 +1,6 @@
 Game scene (needs name: Play?)
 
-God object inherits from monobehaviour
+God script inherits from monobehaviour
 	Each "Play Scene" takes into account: map size, shape, coords, rock spawning, diff... and stores that in a unique seed
 	Reusing this seed recreates an identical game
 	Player cannot choose or see seed in challenge mode?
@@ -17,3 +17,5 @@ Physics object manager is script attached to god object
 Particle manager is script attached to god object
 	Handles the rendering and ticking of every particle object
 	Changing settings can change volume of particles
+
+Do any of these scipts other than god script and perhaps one for setting certain variables need to be added as components?
