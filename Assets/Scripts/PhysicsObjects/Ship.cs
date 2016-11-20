@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class Ship : PhysicsObject {
 
+	public bool controlKey;
+
 	public float force;
 	public float handling;
 
@@ -127,15 +129,26 @@ public class Ship : PhysicsObject {
 			UpdateHealthBar();
 		}
 
-		Debug.Log(rb.velocity.magnitude);
+		Vector3 newForce = (transform.right * force - rb.velocity / maxVel * 3 * force) * handling;
+
+		if (controlKey) {
+			rb.AddForce(newForce * Input.GetAxis("Vertical"));
+			//Debug.Log("sdfjhsdkfjhsdfkj");
+			return;
+		}
+
+		//Debug.Log(rb.velocity.magnitude);
 		if (Input.GetButton("Vertical")) {
-			Vector3 newForce = (transform.right * force - rb.velocity / maxVel * 3 * force) * handling;
+			//Debug.Log("djhg");
+			rb.AddForce(newForce, ForceMode.Force);
+
+
 			//if ((newForce - transform.right).magnitude < 0) {
 				rb.AddForce(newForce, ForceMode.Force);
 			//	return;
 			//}else {
 
-//			}
+			//}
 				//if (transform.right.magnitude > 1) {
 					//rb.AddForce(newForce, ForceMode.Force);
 				//} else {
@@ -167,6 +180,15 @@ public class Ship : PhysicsObject {
 	void setRotation() {
 		if (dead == true)
 			return;
+		
+		if (controlKey) {
+			transform.Rotate(0, 0, Input.GetAxis("Horizontal") * 7);
+			//transform.rotation = Quaternion.Euler(new Vector3(180, 0, -transform.rotation.x));
+			//transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, transform.rotation.z);
+			transform.rotation = Quaternion.Euler(-180, 0, Input.GetAxis("Horizontal")*180);
+			return;
+		}
+
 
 		Vector3 mousePos = Input.mousePosition;
 		Vector3 objectPos = Camera.main.WorldToScreenPoint(transform.position);
